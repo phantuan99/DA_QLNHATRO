@@ -40,7 +40,7 @@ public class EmployeeServices {
         int rowCount = 0;
         try{
             //Định dạng ngay sinh
-             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");    
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");    
             String strDate = formatter.format(NgaySinh); 
             System.out.println("Date Format with yyyy-MM-dd : "+ NgaySinh );
                 
