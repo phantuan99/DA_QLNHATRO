@@ -75,10 +75,10 @@ public class EmployeeServices {
             
             String sql = "UPDATE NHANVIEN SET TENNV=N'" + TenNV + "'" +
                     
-                    ", NGAYSINH     =" + strDate       +
-                    ", SDT          =" + SDT     +         
-                    ", DIACHI   =" + DiaChi +
-                    ", EMAIL   =" + Email +
+                    ", NGAYSINH='" + strDate + "'" +
+                    ", SDT='" + SDT+ "'" +        
+                    ", DIACHI='" + DiaChi + "'" +
+                    ", EMAIL='" + Email + "'" +
                     " WHERE MANV = '" + MaNV +"'";
             
             System.out.println(sql);
