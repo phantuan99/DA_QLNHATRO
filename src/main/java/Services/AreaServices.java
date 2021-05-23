@@ -33,13 +33,12 @@ public class AreaServices {
     }
 
 //Thêm
-    public int AddNewRecord(int MaKV,int MaNV, String TenKV, String DiaChiKV){
+    public int AddNewRecord(int MaNV, String TenKV, String DiaChiKV){
         
         int rowCount = 0;
         try{            
             SqlDataAccess acc = new SqlDataAccess();
-            String sql = "INSERT INTO KHUVUC ( MAKV, MANV,TENKV,DIACHIKV) VALUES('" + MaKV + "'" +
-                    ",'" + MaNV +"'"+
+            String sql = "INSERT INTO KHUVUC (MANV,TENKV,DIACHIKV) VALUES('" + MaNV + "'" +                
                     ",N'" + TenKV +"'"+
                     ",N'" + DiaChiKV +"'"+
                     ")";                    
@@ -60,9 +59,9 @@ public class AreaServices {
             SqlDataAccess acc = new SqlDataAccess();
             
             String sql = "UPDATE KHUVUC SET MANV='" + MaNV + "'" +   
-                    ", TENKV     =" + TenKV  +
-                    ", DIACHIKV     =" + DiaChiKV  +
-                    " WHERE MAKV = '" + MaKV +"'";
+                    ", TENKV='" + TenKV  + "'" +
+                    ", DIACHIKV='" + DiaChiKV  + "'" +
+                    " WHERE MAKV= '" + MaKV +"'";
             
             System.out.println(sql);
             rowCount = acc.Update(sql);
