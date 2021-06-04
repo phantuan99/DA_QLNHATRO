@@ -105,4 +105,26 @@ public class RoomServices {
             }
             return rowCount;
         }
+    
+    public ArrayList<Room> getRecordByArea(int makv){
+        
+         ArrayList<Room> list = new ArrayList<>();
+         try {
+            
+            SqlDataAccess acc = new SqlDataAccess();
+            
+            ResultSet rs = acc.Query("SELECT * FROM PHONGTRO WHERE MAKV = "+makv);
+           
+            while(rs.next()){
+                    
+                    Room room = new Room(rs.getInt("MAPHONGTRO"),rs.getInt("MAKV"),rs.getInt("MALOAIPHONG"),rs.getBoolean("TRANGTHAI"));
+                    
+                    list.add(room);
+                }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+         return list;
+    }
 }
