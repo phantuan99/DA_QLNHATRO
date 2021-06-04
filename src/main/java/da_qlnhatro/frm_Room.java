@@ -27,14 +27,21 @@ import javax.swing.table.DefaultTableModel;
  * @author vuhuynh
  */
 public class frm_Room extends javax.swing.JFrame {
+    //khai báo roomServices để đển thêm, xóa, sửa cơ sở dữ liệu.
     RoomServices roomServices = new RoomServices();
+    //khai báo roomTypeServices để đển thêm, xóa, sửa cơ sở dữ liệu.
     RoomTypeServices roomTypeServices = new RoomTypeServices();
+    //khai báo areaServices để đển hiển thị khu vực trong cơ sở dữ liệu
     AreaServices areaServices = new AreaServices();
-    
+    //khai báo biến chứa danh sách phòng trọ
     ArrayList<Room> dsRoom = new ArrayList<Room>();
+    //khai báo biến chứa danh sách loại phòng 
     ArrayList<RoomType> dsRoomType = new ArrayList<RoomType>();
+    //khai báo biến chứa danh sách khu vực
     ArrayList<Area> dsArea = new ArrayList<Area>();
+    //khai báo biến phòng được chọn
     Room selectedRoom;
+    //khai báo biến loại phòng được chọn
     RoomType selectedRoomType;
     
     /**
@@ -42,10 +49,15 @@ public class frm_Room extends javax.swing.JFrame {
      */
     public frm_Room() {
         initComponents();
+        //load combobox khu vực
         LoadArea();
+        //load combobox loại phòng
         LoadRoomType();
+        //load combobox trạng thái
         LoadTrangThai();
+        //load bảng danh sách phòng trọ
         LoadGridRoom();
+        //load bảng loại phòng trọ
         LoadGridRoomType();
         
     }
@@ -412,113 +424,206 @@ public class frm_Room extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * xử lý sự kiện nút thêm phòng trọ
+     * @param evt 
+     */
     private void btnThemPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemPhongActionPerformed
+        //khai báo biến chứa khu vực được chọn của combobox
         Area khuvuc = (Area) cbxKhuVuc.getSelectedItem();
+        //khai báo biến loại phòng trọ được chọn của combobox
         RoomType loaiphong = (RoomType) cbxLoaiPhong.getSelectedItem();
+        //khái báo biến trạng thái chứa trạng thái được chọn
         boolean trangthai;
+        //nếu vị trí chọn = 0
         if(cbxTrangThai.getSelectedIndex() == 0){
+            //gán biến = false
             trangthai = false;
         }
         else{
+            //gán biến = true
             trangthai = true;
         }
-        
+        //khai báo biến để thực thi SQL và xác định thêm thành công hay thất bại
         int rowEffected = roomServices.AddNewRecord(khuvuc.getMAKV(), loaiphong.getMALOAI(), trangthai);
+        //nếu biến lớn hơn 0 thì thành công
         if(rowEffected > 0){
+            //load lại bảng phòng trọ
             LoadGridRoom();
+            //hiện thông báo thêm thành công
             JOptionPane.showMessageDialog(null, "Thêm thành công!");
         }
         else
+            //hiện thông báo nhập lại thông tin
             JOptionPane.showMessageDialog(null, "Thêm Thất bại");
     }//GEN-LAST:event_btnThemPhongActionPerformed
-
+    /**
+     * xử lý sự kiện sửa phòng trọ
+     * @param evt 
+     */
     private void btnSuaPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaPhongActionPerformed
-        int maphong = Integer.parseInt(txtMaPhong.getText().trim());
-        Area khuvuc = (Area) cbxKhuVuc.getSelectedItem();
-        RoomType loaiphong = (RoomType) cbxLoaiPhong.getSelectedItem();
-        boolean trangthai;
-        if(cbxTrangThai.getSelectedIndex() == 0){
-            trangthai = false;
-        }
-        else{
-            trangthai = true;
-        }
-        int rowEffected = roomServices.UpdateRecord(maphong, khuvuc.getMAKV(), loaiphong.getMALOAI(), trangthai);
-        if(rowEffected > 0){
-            LoadGridRoom();
-            JOptionPane.showMessageDialog(null, "Sửa thành công!");
-        }
-        else
-            JOptionPane.showMessageDialog(null, "Sửa Thất bại");
-    }//GEN-LAST:event_btnSuaPhongActionPerformed
-
-    private void btnXoaPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaPhongActionPerformed
-        int maphong = Integer.parseInt(txtMaPhong.getText().trim());
-        int input = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa?", "Confirmation...",
-            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if(input == 0)
-        {
-      
-            int rowEffected = roomServices.DeleteRecord(maphong);
+        if(!txtMaPhong.getText().isEmpty()){
+            //khai báo biến chứa mã phòng trọ
+            int maphong = Integer.parseInt(txtMaPhong.getText().trim());
+            //khai báo biến chứa khu vực
+            Area khuvuc = (Area) cbxKhuVuc.getSelectedItem();
+            //khai báo biến chứa loại phòng
+            RoomType loaiphong = (RoomType) cbxLoaiPhong.getSelectedItem();
+            //khái báo biến trạng thái chứa trạng thái được chọn
+            boolean trangthai;
+            //nếu vị trí chọn = 0
+            if(cbxTrangThai.getSelectedIndex() == 0){
+                //gán biến = false
+                trangthai = false;
+            }
+            else{
+                //gán biến = true
+                trangthai = true;
+            }
+            //khai báo biến để thực thi SQL và xác định sửa thành công hay thất bại
+            int rowEffected = roomServices.UpdateRecord(maphong, khuvuc.getMAKV(), loaiphong.getMALOAI(), trangthai);
+            //nếu biến lớn hơn 0 thì thành công
             if(rowEffected > 0){
+                //load lại bảng phòng trọ
                 LoadGridRoom();
-                JOptionPane.showMessageDialog(null, "Xóa thành công!");
+                //hiện thông báo sửa thành công
+                JOptionPane.showMessageDialog(null, "Sửa thành công!");
             }
             else
-            JOptionPane.showMessageDialog(null, "Xóa thất bại");
+                //hiện thông báo sửa thất bại
+                JOptionPane.showMessageDialog(null, "Sửa Thất bại");
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "xin chọn phòng cần sửa");
+        }
+    }//GEN-LAST:event_btnSuaPhongActionPerformed
+    /**
+     * xử lý sự kiện xóa phòng trọ
+     * @param evt 
+     */
+    private void btnXoaPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaPhongActionPerformed
+        if(!txtMaPhong.getText().isEmpty()){
+            //khai báo biến chứa mã phòng trọ
+            int maphong = Integer.parseInt(txtMaPhong.getText().trim());
+            // khai báo biến hiện thông báo xác nhận có muốn xóa hay không
+            int input = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa?", "Confirmation...",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            // 0=yes, 1=no, 2=cancel
+            //nếu xác nhận có 
+            if(input == 0)
+            {
+                //khai báo biến thực thi lệnh SQL và xác nhận xóa thành công hay thất bại
+                int rowEffected = roomServices.DeleteRecord(maphong);
+                //nếu biến lớn hơn 0 thì thành công
+                if(rowEffected > 0){
+                    //load lại bảng phòng trọ
+                    LoadGridRoom();
+                    //hiện thông báo xóa thành công
+                    JOptionPane.showMessageDialog(null, "Xóa thành công!");
+                }
+                else
+                    //hiện thông báo xóa thất bại
+                    JOptionPane.showMessageDialog(null, "Xóa thất bại");
+            }
+            }
+        else{
+            JOptionPane.showMessageDialog(null, "xin chọn phòng cần xóa");
         }
     }//GEN-LAST:event_btnXoaPhongActionPerformed
-
+    /**
+     * xử lý sự kiện thêm loại phòng
+     * @param evt 
+     */
     private void btnThemLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemLoaiActionPerformed
+        //khai báo biến chứa tên loại
         String tenloai = txtTenLoai.getText().trim();
+        //khai báo biến chứa đơn giá
         int dongia = Integer.valueOf(txtDonGia.getText().trim());
+        //khai báo biến chứa sức chứa
         int succhua = (int) spnSucchua.getValue();
-        
+        //khai báo biến để thực thi SQL và xác định thêm thành công hay thất bại
         int rowEffected = roomTypeServices.AddNewRecord(tenloai, dongia, succhua);
+        //nếu biến lớn hơn 0 thì thành công
         if(rowEffected > 0){
+            //load lại bảng loại phòng
             LoadGridRoomType();
+            //load lại combobox khu vực
             LoadArea();
+            //load lại combobox loại phòng
             LoadRoomType();
+            //hiển thị thông báo thêm thành công
             JOptionPane.showMessageDialog(null, "Thêm thành công!");
         }
         else
+            //hiển thị thông báo thêm thất bại
             JOptionPane.showMessageDialog(null, "Thêm Thất bại");
     }//GEN-LAST:event_btnThemLoaiActionPerformed
 
     private void btnSuaLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaLoaiActionPerformed
-        int maloai = Integer.valueOf(txtMaloai.getText().trim());
-        String tenloai = txtTenLoai.getText().trim();
-        int dongia = Integer.valueOf(txtDonGia.getText().trim());
-        int succhua = (int) spnSucchua.getValue();
-        
-        int rowEffected = roomTypeServices.UpdateRecord(maloai, tenloai, dongia, succhua);
-        if(rowEffected > 0){
-            LoadGridRoomType();
-            LoadArea();
-            LoadRoomType();
-            JOptionPane.showMessageDialog(null, "Sửa thành công!");
-        }
-        else
-            JOptionPane.showMessageDialog(null, "Sửa Thất bại");
-    }//GEN-LAST:event_btnSuaLoaiActionPerformed
-
-    private void btnXoaLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaLoaiActionPerformed
-        int maloai = Integer.valueOf(txtMaloai.getText().trim());
-        int input = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa?", "Confirmation...",
-            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if(input == 0)
-        {
-      
-            int rowEffected = roomTypeServices.DeleteRecord(maloai);
+        if(!txtMaloai.getText().isEmpty()){
+            //khai báo biến chứa mã loại
+            int maloai = Integer.valueOf(txtMaloai.getText().trim());
+            //khai báo biến chứa tên loại
+            String tenloai = txtTenLoai.getText().trim();
+            //khai báo biến chứa đơn giá
+            int dongia = Integer.valueOf(txtDonGia.getText().trim());
+            //khai báo biến chứa sức chứa
+            int succhua = (int) spnSucchua.getValue();
+            //khai báo biến để thực thi SQL và xác định thêm thành công hay thất bại
+            int rowEffected = roomTypeServices.UpdateRecord(maloai, tenloai, dongia, succhua);
+            //nếu biến lớn hơn 0 thì thành công
             if(rowEffected > 0){
+                //load lại bảng loại phòng
                 LoadGridRoomType();
+                //load lại combobox khu vực
                 LoadArea();
+                //load lại combobox loại phòng
                 LoadRoomType();
-                JOptionPane.showMessageDialog(null, "Xóa thành công!");
+                //hiển thị thông báo sửa thành công
+                JOptionPane.showMessageDialog(null, "Sửa thành công!");
             }
             else
-            JOptionPane.showMessageDialog(null, "Xóa thất bại");
+                //hiển thị thông báo sửa thất bại
+                JOptionPane.showMessageDialog(null, "Sửa Thất bại");
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Xin chọn loại phòng cần sửa");
+        }
+    }//GEN-LAST:event_btnSuaLoaiActionPerformed
+    /**
+     * xử lý sự kiện xóa loại phòng
+     * @param evt 
+     */
+    private void btnXoaLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaLoaiActionPerformed
+        if(!txtMaloai.getText().isEmpty()){
+            //khai báo biến chứa mã loại
+            int maloai = Integer.valueOf(txtMaloai.getText().trim());
+            // khai báo biến hiện thông báo xác nhận có muốn xóa hay không
+            int input = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa?", "Confirmation...",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            // 0=yes, 1=no, 2=cancel
+            if(input == 0)
+            {
+                //khai báo biến thực thi lệnh SQL và xác nhận xóa thành công hay thất bại
+                int rowEffected = roomTypeServices.DeleteRecord(maloai);
+                //nếu biến lớn hơn 0 thì thành công
+                if(rowEffected > 0){
+                    //load lại bảng danh sách khách hàng
+                    LoadGridRoomType();
+                    //load lại combobox khu vực
+                    LoadArea();
+                    //load lại combobox loại phòng
+                    LoadRoomType();
+                    //hiện thông báo xóa thành công
+                    JOptionPane.showMessageDialog(null, "Xóa thành công!");
+                }
+                else
+                //hiện thông báo xóa thất bại
+                JOptionPane.showMessageDialog(null, "Xóa thất bại");
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Xin chọn loại phòng cần xóa");
         }
     }//GEN-LAST:event_btnXoaLoaiActionPerformed
 
@@ -591,33 +696,51 @@ public class frm_Room extends javax.swing.JFrame {
     private javax.swing.JTextField txtMaloai;
     private javax.swing.JTextField txtTenLoai;
     // End of variables declaration//GEN-END:variables
-
+    
+    /**
+     * load bảng danh sách phòng trọ
+     */
     private void LoadGridRoom() {
+        //khai báo biến lấy model của bảng phòng trọ
         DefaultTableModel model = (DefaultTableModel) dgvPhongTro.getModel();
+        //xóa bảng
         model.setRowCount(0);
-        
+        //khai báo biến list chứa danh sách tất cả phòng trọ từ cơ sở dữ liệu
         ArrayList<Room> list = roomServices.getAllRecords();
+        //gán danh sách vừa lấy được cho biến dsRoom
         dsRoom = list;
-        
-        Object[] row = new Object[5];
+        //khai báo mảng đối tượng chứa thông tin để mỗi dòng
+        Object[] row = new Object[4];
+        //vòng lặp chạy từ đầu đến hết danh sách
         for(int i = 0; i< list.size(); i++){
+            //vị trí 0 hiện mã phòng
             row[0] = list.get(i).getMAPHONG();
+            //vị trí 1 hiện tên khu vực
             row[1] = findArea(list.get(i).getMAKV(), dsArea).getTENKV();
+            //vị trí 2 hiện tên loại phòng
             row[2] = findRoomType(list.get(i).getMALOAI(), dsRoomType).getTENLOAI();
-            if(list.get(i).isTRANGTHAI() == true){
+            //đặt điều kiện để hiển thị vị trí 3
+            if(list.get(i).isTRANGTHAI() == true)//nếu trạng thái = true
+            {
+                //thỏa điều kiện
                 row[3] = "đã thuê";
             }
             else{
+                //không thỏa điều kiện
                 row[3] = "Trống";
             }       
+            //thêm 1 dòng vào bảng
             model.addRow(row);
         }    
-        
+        //khai báo phương thức chọn trên bảng
         ListSelectionModel cellSelectionModel = dgvPhongTro.getSelectionModel();
+        //khai báo chọn đơn lẻ
         cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        //xử lý sự kiện chọn
         cellSelectionModel.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
+                //xử lý sự kiện thay đổi dòng chọn
                 roomGridSelectedChanged();
             }
 
@@ -625,21 +748,29 @@ public class frm_Room extends javax.swing.JFrame {
         });
     }
     private void roomGridSelectedChanged() {
-        String selectedData = null;
+        //String selectedData = null;
+        
+        //biến chứa mã phòng trọ vừa chọn
         int selectedID = 0;
-        
+        //Trả về một mảng các số nguyên, mỗi một số nguyên chính là chỉ số của một hàng đang được chọn trong bảng.
         int[] selectedRows = dgvPhongTro.getSelectedRows();
+        //Trả về một mảng các số nguyên, mỗi số nguyên là một chỉ số của một cột đang được chọn trong bảng
         int[] selectedColumns = dgvPhongTro.getSelectedColumns();
-        
+        //Trả về một số nguyên, số nguyên này là chỉ số nhỏ nhất của một hàng trong tập hợp các hàng đang được chọn của bảng.
         int selectedRow = dgvPhongTro.getSelectedRow();
+        //Trả về một số nguyên là chỉ số nhỏ nhất của một cột trong số các cột đang được chọn của bảng.
         int selectedColumn = dgvPhongTro.getSelectedColumn();
-        
+        //nếu số dòng được chọn lớn hơn hoặc bằng 0 và nếu số cột chọn lớn hơn hoặc bằng 0
         if(selectedRow >=0 && selectedColumn >=0){
-            selectedData = String.valueOf(dgvPhongTro.getValueAt(selectedRow, selectedColumn));
-            selectedID = (int) dgvPhongTro.getValueAt(selectedRow, 0);
             
+            //selectedData = String.valueOf(dgvPhongTro.getValueAt(selectedRow, selectedColumn));
+            //gán biến bằng dòng được chọn cột 0 lấy mã phòng
+            selectedID = (int) dgvPhongTro.getValueAt(selectedRow, 0);
+            //gán đối tượng được chọn cho biến selectedRoom để xét điều kiện
             selectedRoom = findRoom(selectedID, dsRoom);
+            //nếu biến mã phòng trọ khác 0
             if(selectedID != 0){
+                //chạy phương thức hiển thị thông tin dòng được chọn lên các ô textfield và combobox
                 ShowRoomDetail(selectedID,
                        (String) dgvPhongTro.getValueAt(selectedRow, 1),
                        (String) dgvPhongTro.getValueAt(selectedRow, 2),
@@ -647,37 +778,73 @@ public class frm_Room extends javax.swing.JFrame {
             }
         }
     }
+    /**
+     * Đây là phương thức hiển thị thông tin dòng được chọn lên các ô textfield và combobox phòng trọ
+     * @param maphong
+     * @param tenkv
+     * @param tenloai
+     * @param trangthai 
+     */
     private void ShowRoomDetail(int maphong, String tenkv, String tenloai, String trangthai) {
-        txtMaPhong.setText("" + maphong);
+        //đặt điều kiện nếu nếu đã chọn dòng trong bảng
         if(selectedRoom != null){
+            //gán mã phòng trọ lên textfield
+            txtMaPhong.setText("" + maphong);
+            //hiển thị tên khu vực của dòng vừa chọn
             cbxKhuVuc.setSelectedItem(findArea(selectedRoom.getMAKV(), dsArea));
+            //hiển thị tên loại phòng của dòng vừa chọn
             cbxLoaiPhong.setSelectedItem(findRoomType(selectedRoom.getMALOAI(), dsRoomType));
+            //xét điều kiện trạng thái của dòng vừa chọn
             if(selectedRoom.isTRANGTHAI() == false){
+                //thỏa điều kiện
                 cbxTrangThai.setSelectedIndex(0);
             }
             else{
+                //không thỏa điều kiện
                 cbxTrangThai.setSelectedIndex(1);
             }
         }
     }
+    /**
+     * phương thức tìm một phòng trọ với mã phòng và danh sách phòng được truyền vào
+     * @param maphong
+     * @param rooms
+     * @return trả về đối tượng phòng trọ tìm được
+     */
     private Room findRoom(int maphong, ArrayList<Room> rooms){
+        //với từng đối tượng trong danh sách
         for(Room item : rooms){
+            //nếu thỏa điều kiện bằng mã phòng
             if (item.getMAPHONG() == maphong) {
+                //trả về đối tượng thỏa điều kiện
                 return item;
             }
         }
         return null;
     }
-    
+    /**
+     * phương thức tìm một khu vực với mã khu vực và danh sách khu vực được truyền vào
+     * @param makv
+     * @param areas
+     * @return trả về đối tượng khu vực tìm được
+     */
     private Area findArea(int makv, ArrayList<Area> areas){
+        //với từng đối tượng trong danh sách
         for(Area item : areas){
+            //nếu thỏa điều kiện bằng mã phòng
             if(item.getMAKV() == makv){
+                //trả về đối tượng thỏa điều kiện
                 return item;
             }
         }
         return null;      
     }
-    
+    /**
+     * phương thức tìm một phòng trọ với mã loại phòng và danh sách loại phòng được truyền vào
+     * @param maloai
+     * @param roomTypes
+     * @return trả về đối tượng loại phòng tìm được
+     */
     private RoomType findRoomType(int maloai, ArrayList<RoomType> roomTypes){
         for(RoomType item : roomTypes){
             if(item.getMALOAI() == maloai){
@@ -686,19 +853,27 @@ public class frm_Room extends javax.swing.JFrame {
         }
         return null;
     }
-    
+    /**
+     * load combobox khu vực
+     */
     private void LoadArea() {
+        //xóa combobox
         cbxKhuVuc.removeAllItems();
+        //lấy tất cả danh sách khu vực trong cơ sỡ dữ liệu
         dsArea = areaServices.getAllRecords();
+        //với mỗi đối tượng trong danh sách
         for(Area item : dsArea){
+            //thêm vào combox
             cbxKhuVuc.addItem(item);
         }
+        //kiểu hiện thị combobox
         cbxKhuVuc.setRenderer(new DefaultListCellRenderer(){
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-                super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);               
                 if(value instanceof Area){
                     Area item = (Area) value;
+                    //hiển thị tên khu vực
                     setText(item.getTENKV());
                 }
                 return this;
@@ -706,19 +881,27 @@ public class frm_Room extends javax.swing.JFrame {
             
         });
     }
-
+    /**
+     * load combobox loại phòng
+     */
     private void LoadRoomType() {
+        //xóa combobox
         cbxLoaiPhong.removeAllItems();
+        //lấy tất cả danh sách loại phòng trong cơ sỡ dữ liệu
         dsRoomType = roomTypeServices.getAllRecords();
+        //với mỗi đối tượng trong danh sách
         for(RoomType item : dsRoomType){
+            //thêm vào combox
             cbxLoaiPhong.addItem(item);
         }
+        //kiểu hiện thị combobox
         cbxLoaiPhong.setRenderer(new DefaultListCellRenderer(){
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
                 if(value instanceof RoomType){
                     RoomType item = (RoomType) value;
+                    //hiển thị tên loại phòng
                     setText(item.getTENLOAI());
                 }
                 return this;
@@ -726,58 +909,85 @@ public class frm_Room extends javax.swing.JFrame {
             
         });
     }
-
+    /**
+     * load combobox Trạng thái
+     */
     private void LoadTrangThai() {
+        //xóa combobox
         cbxTrangThai.removeAllItems();
-        DefaultComboBoxModel status = new DefaultComboBoxModel();
+        //khai báo model combobox
+        DefaultComboBoxModel status = (DefaultComboBoxModel) cbxTrangThai.getModel();
+        //thêm phần tử vào model 
         status.addElement("Trống");
         status.addElement("Đã thuê");
-        cbxTrangThai.setModel(status);
-        
     }
-
+    /**
+     * load bảng danh sách loại phòng trọ
+     */
     private void LoadGridRoomType() {
+        //khai báo biến lấy model của bảng
         DefaultTableModel model = (DefaultTableModel) dgvLoaiPhong.getModel();
+        //xóa bảng
         model.setRowCount(0);
-        
+        //khai báo biến list chứa danh sách tất cả loại phòng từ cơ sở dữ liệu
         ArrayList<RoomType> list = roomTypeServices.getAllRecords();
+        //gán danh sách vừa lấy được cho biến dsRoom
         dsRoomType = list;
-        
+        //khai báo mảng đối tượng chứa thông tin để mỗi dòng
         Object[] row = new Object[4];
+        //vòng lặp chạy từ đầu đến hết danh sách
         for (int i = 0; i < list.size(); i++) {
+            //vị trí 0 hiện mã loại
             row[0] = list.get(i).getMALOAI();
+            //vị trí 1 hiện tên loại
             row[1] = list.get(i).getTENLOAI();
+            //vị trí 2 hiện đơn giá
             row[2] = list.get(i).getDONGIA();
+            //vị trí 3 hiện sức chứa
             row[3] = list.get(i).getSUCCHUA();
+            //thêm 1 dòng vào bảng
             model.addRow(row);
             
         }
+        //khai báo phương thức chọn trên bảng
         ListSelectionModel cellSelectionModel = dgvLoaiPhong.getSelectionModel();
+        //khai báo chọn đơn lẻ
         cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        //xử lý sự kiện chọn
         cellSelectionModel.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
+                //xử lý sự kiện thay đổi dòng chọn
                 roomTypeGridSelectedChanged();
             }
   
         });
     }
+    /**
+     * xử lý sự kiện thay đổi dòng chọn bảng loại phòng
+     */
      private void roomTypeGridSelectedChanged() {
-        String selectedData = null;
+//        String selectedData = null;
+        //biến chứa mã loại phòng đã chọn
         int selectedID = 0;
-        
+        //Trả về một mảng các số nguyên, mỗi một số nguyên chính là chỉ số của một hàng đang được chọn trong bảng.
         int[] selectedRows = dgvLoaiPhong.getSelectedRows();
+        //Trả về một mảng các số nguyên, mỗi số nguyên là một chỉ số của một cột đang được chọn trong bảng
         int[] selectedColumns = dgvLoaiPhong.getSelectedColumns();
-        
+        //Trả về một số nguyên, số nguyên này là chỉ số nhỏ nhất của một hàng trong tập hợp các hàng đang được chọn của bảng.
         int selectedRow = dgvLoaiPhong.getSelectedRow();
+        //Trả về một số nguyên là chỉ số nhỏ nhất của một cột trong số các cột đang được chọn của bảng.
         int selectedColumn = dgvLoaiPhong.getSelectedColumn();
-        
+        //nếu số dòng được chọn lớn hơn hoặc bằng 0 và nếu số cột chọn lớn hơn hoặc bằng 0
         if(selectedRow >=0 && selectedColumn >=0){
-            selectedData = String.valueOf(dgvLoaiPhong.getValueAt(selectedRow, selectedColumn));
+//            selectedData = String.valueOf(dgvLoaiPhong.getValueAt(selectedRow, selectedColumn));
+            //gán biến bằng dòng và cột đầu tiên được chọn lấy mã loại
             selectedID = (int) dgvLoaiPhong.getValueAt(selectedRow, 0);
-            
+            //gán đối tượng được chọn cho biến selectedRoomType để xét điều kiện
             selectedRoomType = findRoomType(selectedID, dsRoomType);
+            //nếu biến mã loại khác 0
             if(selectedID != 0){
+                //chạy phương thức hiển thị thông tin dòng được chọn lên các ô textfield và spinner
                 ShowRoomTypeDetail(selectedID,
                        (String) dgvLoaiPhong.getValueAt(selectedRow, 1),
                        (int) dgvLoaiPhong.getValueAt(selectedRow, 2),
@@ -785,12 +995,26 @@ public class frm_Room extends javax.swing.JFrame {
             }
         }
     }
-
+    /**
+     * Đây là phương thức hiển thị thông tin dòng được chọn lên các ô textfield và spinner loại phòng
+     * @param makh
+     * @param maloai
+     * @param tenloai
+     * @param dongia
+     * @param succhua 
+     */
     private void ShowRoomTypeDetail(int maloai, String tenloai, int dongia, int succhua) {
-        txtMaloai.setText(""+maloai);
-        txtTenLoai.setText(tenloai);
-        txtDonGia.setText(""+dongia);
-        spnSucchua.setValue(succhua);
+        //xét điều kiện loại phòng đã chọn
+        if(selectedRoomType != null){ 
+            //gán mã loại lên textfield
+            txtMaloai.setText(""+maloai);
+            //gán tên loại lên textfield
+            txtTenLoai.setText(tenloai);
+            //gán đơn giá lên textfield
+            txtDonGia.setText(""+dongia);
+            //gán giá trị spinner
+            spnSucchua.setValue(succhua);
+        }
     }
     
 }

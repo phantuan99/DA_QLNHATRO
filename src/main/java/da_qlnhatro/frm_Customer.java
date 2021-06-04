@@ -20,14 +20,16 @@ import javax.swing.table.DefaultTableModel;
  * @author vuhuynh
  */
 public class frm_Customer extends javax.swing.JFrame {
+    //khai báo customerServices để đển thêm, xóa, sửa cơ sở dữ liệu.
     CustomerServices customerServices = new CustomerServices();
     
-    ArrayList<Customer> dsKH =  new ArrayList<Customer>();
+    //ArrayList<Customer> dsKH =  new ArrayList<Customer>();
     /**
      * Creates new form frm_Customer
      */
     public frm_Customer() {
         initComponents();
+        //load danh sách từ cơ sở dữ liệu lên bảng
         loadGrid();
     }
 
@@ -280,66 +282,104 @@ public class frm_Customer extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Xử lý sự kiện cho nút thêm
+     * @param evt 
+     */
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        //nếu text field txtTenKH khác rỗng
         if(!txtTenKH.getText().isEmpty()){
+            //khai báo biến chứa tên khách hàng
             String tenkh = txtTenKH.getText();
+            //khai bao biến chứa ngày sinh khách hàng         
             Date ngaysinh = dtmNgaySinh.getDate();
+            //khai bao biến chứa số điện thoại khách hàng
             String sdt  = txtSDT.getText();
+            //khai báo biến chứa địa chỉ khách hàng
             String diachi = txtDiaChi.getText();
+            //khai báo biến chứa email khách hàng
             String email = txtEmail.getText();
-
+            //khai báo biến để thực thi SQL và xác định thêm thành công hay thất bại
             int rowEffected = customerServices.AddNewRecord(tenkh, ngaysinh, sdt, diachi, email);
+            //nếu biến lớn hơn 0 thì thành công
             if(rowEffected > 0 ){
+                //hiện thông báo thêm thành công
                 JOptionPane.showMessageDialog(null, "Thêm thành công!");
+                //load lại bảng danh sách khách hàng
                 loadGrid();
             }
         }
         else{
+            //hiện thông báo nhập lại thông tin
             JOptionPane.showMessageDialog(null, "Xin nhập vào thông tin khách hàng cần thêm!!");
         }
     }//GEN-LAST:event_btnThemActionPerformed
-
+    /**
+     * xử lý sự kiện nút sửa
+     * @param evt 
+     */
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        //nếu text field txtMaKH khác rỗng
         if(!txtMaKH.getText().isEmpty()){
+            //khai báo biến chứa mã khách hàng
             int makh = Integer.parseInt(txtMaKH.getText());
+            //khai báo biến chứa tên khách hàng
             String tenkh = txtTenKH.getText();
+            //khai bao biến chứa ngày sinh khách hàng         
             Date ngaysinh = dtmNgaySinh.getDate();
+            //khai bao biến chứa số điện thoại khách hàng
             String sdt  = txtSDT.getText();
+            //khai báo biến chứa địa chỉ khách hàng
             String diachi = txtDiaChi.getText();
+            //khai báo biến chứa email khách hàng
             String email = txtEmail.getText();
+            //khai báo biến để thực thi SQL và xác định sửa thành công hay thất bại
             int rowEffected = customerServices.UpdateRecord(makh, tenkh, ngaysinh, sdt, diachi, email);
+            //nếu biến lớn hơn 0 thì thành công
             if(rowEffected > 0 ){
+                //hiện thông báo sửa thành công
                 JOptionPane.showMessageDialog(null, "Thông tin khách hàng đã được thay đổi!");
+                //load lại bảng danh sách khách hàng
                 loadGrid();
             }
         }
         else{
+            //hiện thông báo chọn lại thông tin
             JOptionPane.showMessageDialog(null, "Xin chọn thông tin khách hàng cần sửa!!");
         }
     }//GEN-LAST:event_btnSuaActionPerformed
-
+    /**
+     * xử lý sự kiện cho nút xóa
+     * @param evt 
+     */
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-       
+        //nếu text field txtMaKH khác rỗng
         if(!txtMaKH.getText().trim().isEmpty())
         {
+            //khai báo biến chứa mã khách hàng
             int makh = Integer.parseInt(txtMaKH.getText());
-            int input = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa?", "Confirmation...",
-            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-
+            // khai báo biến hiện thông báo xác nhận có muốn xóa hay không
+            int input = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa?", "Confirmation...",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            // 0=yes, 1=no, 2=cancel
+            //nếu xác nhận có 
             if(input == 0)
             {
-      
+                //khai báo biến thực thi lệnh SQL và xác nhận xóa thành công hay thất bại
                 int rowEffected = customerServices.DeleteRecord(makh);
+                //nếu biến lớn hơn 0 thì thành công
                 if(rowEffected > 0){
+                    //load lại bảng danh sách khách hàng
                     loadGrid();
+                    //hiện thông báo xóa thành công
                     JOptionPane.showMessageDialog(null, "Xóa thành công!");
                 }
                 else
+                //hiện thông báo xóa thất bại
                 JOptionPane.showMessageDialog(null, "Xóa thất bại");
             }
         }
         else{
+            //hiện thông báo chọn lại thông tin
             JOptionPane.showMessageDialog(null, "Xin chọn thông tin khách hàng cần xóa!!");
         }
     }//GEN-LAST:event_btnXoaActionPerformed
@@ -402,51 +442,79 @@ public class frm_Customer extends javax.swing.JFrame {
     private javax.swing.JTextField txtSDT;
     private javax.swing.JTextField txtTenKH;
     // End of variables declaration//GEN-END:variables
-
+    /**
+     * phương thức load bảng danh sách khách hàng từ cơ sở dữ liệu
+     */
     private void loadGrid() {
+        //khai báo biến lấy model của bảng
         DefaultTableModel model = (DefaultTableModel) dgvKH.getModel();
+        //xóa bảng
         model.setRowCount(0);
-        
+        //khai báo biến list chứa danh sách tất cả khách hàng từ cơ sở dữ liệu
         ArrayList<Customer> list = customerServices.getAllRecords();
-        dsKH = list;
         
-        Object[] row = new Object[7];
         
+        //dsKH = list;
+        
+        //khai báo mảng đối tượng chứa thông tin để mỗi dòng
+        Object[] row = new Object[6];
+        //vòng lặp chạy từ đầu đến hết danh sách
         for(int i = 0; i< list.size(); i++){
+            //vị trí 0 hiện mã khách hàng
             row[0] = list.get(i).getMAKH();
+            //vị trí 1 hiện tên khách hàng
             row[1] = list.get(i).getTENKH();
+            //vị trí 2 hiện ngày sinh khách hàng
             row[2] = list.get(i).getNGAYSINH();
+            //vị trí 3 hiện số điện thoại khách hàng
             row[3] = list.get(i).getSDT();
+            //vị trí 4 hiện địa chỉ khách hàng
             row[4] = list.get(i).getDIACHI();
+            //vị trí 5 hiện email khách hàng
             row[5] = list.get(i).getEmail();
+            //thêm 1 dòng vào bảng
             model.addRow(row);
         }
-        
+        //khai báo phương thức chọn trên bảng
         ListSelectionModel listSelectionModel = dgvKH.getSelectionModel();
+        //khai báo chọn đơn lẻ
         listSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        //xử lý sự kiện chọn
         listSelectionModel.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
+                //xử lý sự kiện thay đổi dòng chọn
                 gridSelectedChanged(e);
             }
         });
         
     }
+    /**
+     * xử lý sự kiện thay đổi dòng chọn
+     * @param e 
+     */
     public void gridSelectedChanged(ListSelectionEvent e) {
-                String selectedData = null;
+                //String selectedData = null;
+                
+                //biến chứa mã khách hàng đã chọn
                 int selectedID = 0;
-                    
+                    //Trả về một mảng các số nguyên, mỗi một số nguyên chính là chỉ số của một hàng đang được chọn trong bảng.
                     int[] selectedRows = dgvKH.getSelectedColumns();
+                    //Trả về một mảng các số nguyên, mỗi số nguyên là một chỉ số của một cột đang được chọn trong bảng
                     int[] selectedColumns = dgvKH.getSelectedColumns();
-                    
+                    //Trả về một số nguyên, số nguyên này là chỉ số nhỏ nhất của một hàng trong tập hợp các hàng đang được chọn của bảng.
                     int selectedRow = dgvKH.getSelectedRow();
+                    //Trả về một số nguyên là chỉ số nhỏ nhất của một cột trong số các cột đang được chọn của bảng.
                     int selectedColumn = dgvKH.getSelectedColumn();
-                    
+                    //nếu số dòng được chọn lớn hơn hoặc bằng 0 và nếu số cột chọn lớn hơn hoặc bằng 0
                     if(selectedRow >=0 && selectedColumn >= 0){
-                        selectedData = String.valueOf(dgvKH.getValueAt(selectedRow, selectedColumn));
-                        selectedID = (int) dgvKH.getValueAt(selectedRow, 0);
                         
+                        //selectedData = String.valueOf(dgvKH.getValueAt(selectedRow, selectedColumn));
+                        //gán biến bằng dòng và cột đầu tiên được chọn lấy mã khách hàng
+                        selectedID = (int) dgvKH.getValueAt(selectedRow, 0);
+                        //nếu biến mã khách hàng khác 0
                         if(selectedID !=0){
+                            //chạy phương thức hiển thị thông tin dòng được chọn lên các ô textfield qua biến mã khách hàng
                             showDataDetail(selectedID, 
                                     (String)dgvKH.getValueAt(selectedRow, 1), 
                                     (Date) dgvKH.getValueAt(selectedRow, 2), 
@@ -456,13 +524,27 @@ public class frm_Customer extends javax.swing.JFrame {
                         }
                     }
             }
-
+    /**
+     * Đây là phương thức hiển thị thông tin dòng được chọn lên các ô textfield
+     * @param makh
+     * @param tenkh
+     * @param ngaysinh
+     * @param sdt
+     * @param diachi
+     * @param email 
+     */
     private void showDataDetail(int makh, String tenkh, Date ngaysinh, String sdt, String diachi, String email) {
+        //gán mã khách hàng lên textfield
         txtMaKH.setText(""+makh);
+        //gán tên khách hàng lên textfield
         txtTenKH.setText(tenkh);
+        //gán ngày sinh khách hàng lên textfield
         dtmNgaySinh.setDate(ngaysinh);
+        //gán số điện thoại khách hàng lên textfield
         txtSDT.setText(sdt);
+        //gán địa chỉ khách hàng lên textfield
         txtDiaChi.setText(diachi);
+        //gán email khách hàng lên textfield
         txtEmail.setText(email);
         
     }
