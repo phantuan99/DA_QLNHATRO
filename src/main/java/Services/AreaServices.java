@@ -14,27 +14,48 @@ import javax.swing.JOptionPane;
  *
  * @author PhanTuan
  */
-public class AreaServices {
-    public ArrayList<Area> getAllRecords(){
-        ArrayList<Area> list = new ArrayList<Area>(); // Khởi tạo danh sách NV
-        try{        
-            SqlDataAccess acc = new SqlDataAccess();
-            ResultSet rs = acc.Query("SELECT * FROM [KHUVUC]");
 
-            while(rs.next()){
+/**
+ * 
+ * Chứa các phương thức truy vấn của khu vực
+ */
+public class AreaServices {
+  
+    /**
+     * 
+     * Dùng để select dữ liệu từ database
+     */
+    public ArrayList<Area> getAllRecords()
+    {
+       
+        ArrayList<Area> list = new ArrayList<Area>(); // Khởi tạo danh sách khu vực
+        try
+        {        
+            SqlDataAccess acc = new SqlDataAccess(); 
+            ResultSet rs = acc.Query("SELECT * FROM [KHUVUC]");
+            while(rs.next())
+            {
                 Area KV = new Area(rs.getInt("MAKV"), rs.getInt("MANV"), rs.getString("TENKV"), rs.getString("DIACHIKV"));
                 list.add(KV);
             }            
         }
-        catch(Exception e){
+        catch(Exception e)
+        {
             JOptionPane.showMessageDialog(null, e);
         }
         return list;
     }
 
-//Thêm
+
+       /**
+        * Phương thức chứa câu lệnh truy vấn thêm mới vào database
+        * @param MaNV - Truyền vào nhân viên
+        * @param TenKV - Truyền vào khu vực
+        * @param DiaChiKV - Truyền vào địa chỉ khu vực
+        * @return 
+        */
     public int AddNewRecord(int MaNV, String TenKV, String DiaChiKV){
-        
+     
         int rowCount = 0;
         try{            
             SqlDataAccess acc = new SqlDataAccess();
@@ -52,7 +73,14 @@ public class AreaServices {
         }
         return rowCount;
     }
-    //Update
+    /**
+     * Phương thức chứa câu lệnh truy vấn cập nhật dữ liệu vào database
+     * @param MaKV - Truyền vào mã khu vực(đây là tự động)
+     * @param MaNV - Truyền vào nhân viên
+     * @param TenKV - Truyền vào tên khu vực
+     * @param DiaChiKV - Truyền vào địa chỉ khu vực
+     * @return 
+     */
     public int UpdateRecord(int MaKV,int MaNV, String TenKV, String DiaChiKV ){
         int rowCount = 0;
         try{      
@@ -72,7 +100,11 @@ public class AreaServices {
         return rowCount;
     }
     
-    //Xoa
+    /**
+     * Phương thức chứa câu lệnh truy vấn xóa dữ liệu ở database
+     * @param MaKV
+     * @return 
+     */
     public int DeleteRecord(int MaKV){
         int rowCount = 0;
         try{

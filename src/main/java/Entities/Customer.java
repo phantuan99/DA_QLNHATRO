@@ -18,7 +18,7 @@ public class Customer {
     private String SDT;
     private String DIACHI;
     private String Email;
-
+//Constructor
     public Customer(int MAKH, String TENKH, Date NGAYSINH, String SDT, String DIACHI, String Email) {
         this.MAKH = MAKH;
         this.TENKH = TENKH;
@@ -27,7 +27,7 @@ public class Customer {
         this.DIACHI = DIACHI;
         this.Email = Email;
     }
-
+// Khởi tạo GET,SET
     public int getMAKH() {
         return MAKH;
     }

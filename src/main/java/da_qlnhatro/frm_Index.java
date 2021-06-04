@@ -17,6 +17,11 @@ public class frm_Index extends javax.swing.JFrame {
      public String userRole;
     public frm_Index() {
         initComponents();
+        //Nếu không phải admin thì không hiện quản lý user
+        if(lbl_role.getText().equals("Admin"))
+        {
+            btn_QLTK.setVisible(false);
+        }
     }
 
     /**
@@ -28,33 +33,76 @@ public class frm_Index extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btn_qlnv = new javax.swing.JButton();
-        btn_KV = new javax.swing.JButton();
+        btn_QLBill = new javax.swing.JButton();
+        btn_QLKV = new javax.swing.JButton();
         lbl_Username = new javax.swing.JLabel();
-        btn_qltk1 = new javax.swing.JButton();
+        btn_QLTK = new javax.swing.JButton();
+        btn_QLPhong = new javax.swing.JButton();
+        btn_QLHD = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        lbl_role = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        btn_QLDienNuoc = new javax.swing.JButton();
+        btn_QLKH = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btn_qlnv.setText("QUẢN LÝ NHÂN VIÊN");
-        btn_qlnv.addActionListener(new java.awt.event.ActionListener() {
+        btn_QLBill.setText("QUẢN LÝ HÓA ĐƠN");
+        btn_QLBill.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_qlnvActionPerformed(evt);
+                btn_QLBillActionPerformed(evt);
             }
         });
 
-        btn_KV.setText("QUẢN LÝ KHU VỰC");
-        btn_KV.addActionListener(new java.awt.event.ActionListener() {
+        btn_QLKV.setText("QUẢN LÝ KHU VỰC");
+        btn_QLKV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_KVActionPerformed(evt);
+                btn_QLKVActionPerformed(evt);
             }
         });
 
         lbl_Username.setText("jLabel1");
 
-        btn_qltk1.setText("QUẢN LÝ TÀI KHOẢN");
-        btn_qltk1.addActionListener(new java.awt.event.ActionListener() {
+        btn_QLTK.setBackground(new java.awt.Color(255, 51, 204));
+        btn_QLTK.setText("QUẢN LÝ TÀI KHOẢN");
+        btn_QLTK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_qltk1ActionPerformed(evt);
+                btn_QLTKActionPerformed(evt);
+            }
+        });
+
+        btn_QLPhong.setText("QUẢN LÝ PHÒNG");
+        btn_QLPhong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_QLPhongActionPerformed(evt);
+            }
+        });
+
+        btn_QLHD.setText("QUẢN LÝ HỢP ĐỒNG");
+        btn_QLHD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_QLHDActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabel1.setText("HỆ THỐNG QUẢN LÝ NHÀ TRỌ");
+
+        lbl_role.setText("lbl_Role");
+
+        jLabel2.setText("Welcome");
+
+        btn_QLDienNuoc.setText("QUẢN LÝ ĐIỆN NƯỚC");
+        btn_QLDienNuoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_QLDienNuocActionPerformed(evt);
+            }
+        });
+
+        btn_QLKH.setText("QUẢN LÝ KHÁCH HÀNG");
+        btn_QLKH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_QLKHActionPerformed(evt);
             }
         });
 
@@ -63,54 +111,113 @@ public class frm_Index extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(175, 212, Short.MAX_VALUE)
+                .addContainerGap(89, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_KV, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(btn_qltk1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(148, 148, 148)
-                            .addComponent(btn_qlnv, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(219, 219, 219))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(lbl_Username)
-                            .addGap(154, 154, 154)))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(83, 83, 83))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_role)
+                            .addComponent(lbl_Username))
+                        .addGap(122, 122, 122))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(87, 87, 87)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_QLBill, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_QLKV, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_QLKH, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btn_QLDienNuoc, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_QLTK, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btn_QLHD, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_QLPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lbl_Username)
-                .addGap(171, 171, 171)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_qlnv, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_qltk1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
-                .addComponent(btn_KV, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(267, Short.MAX_VALUE))
+                    .addComponent(lbl_Username)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbl_role)
+                .addGap(41, 41, 41)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(69, 69, 69)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_QLHD, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_QLBill, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_QLTK, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_QLPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_QLKV, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_QLDienNuoc, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addComponent(btn_QLKH, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_KVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_KVActionPerformed
+    private void btn_QLKVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_QLKVActionPerformed
         frm_Area KV = new frm_Area();
         KV.setVisible(true);
-    }//GEN-LAST:event_btn_KVActionPerformed
+    }//GEN-LAST:event_btn_QLKVActionPerformed
 
-    private void btn_qltk1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_qltk1ActionPerformed
+    private void btn_QLTKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_QLTKActionPerformed
         frm_UserAccount User = new frm_UserAccount();
         User.setVisible(true); 
-    }//GEN-LAST:event_btn_qltk1ActionPerformed
+    }//GEN-LAST:event_btn_QLTKActionPerformed
 
-    private void btn_qlnvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_qlnvActionPerformed
-        
-        frm_Employee NV = new frm_Employee();
-        NV.setVisible(true); 
-    }//GEN-LAST:event_btn_qlnvActionPerformed
+    private void btn_QLBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_QLBillActionPerformed
+        frm_Bill B = new frm_Bill();
+        B.setVisible(true);
+    }//GEN-LAST:event_btn_QLBillActionPerformed
 
-       public void setTenUser(String username){ 
+    private void btn_QLPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_QLPhongActionPerformed
+       frm_Room R = new frm_Room();
+       R.setVisible(true);
+    }//GEN-LAST:event_btn_QLPhongActionPerformed
+
+    private void btn_QLHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_QLHDActionPerformed
+        frm_Contract C = new frm_Contract();
+        C.setVisible(true);
+    }//GEN-LAST:event_btn_QLHDActionPerformed
+
+    private void btn_QLDienNuocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_QLDienNuocActionPerformed
+       frm_DienNuoc DN = new frm_DienNuoc();
+       DN.setVisible(true);
+    }//GEN-LAST:event_btn_QLDienNuocActionPerformed
+
+    private void btn_QLKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_QLKHActionPerformed
+        frm_Customer KH = new frm_Customer();
+        KH.setVisible(true);
+    }//GEN-LAST:event_btn_QLKHActionPerformed
+
+    /**
+     * Set tên user vào form Main
+     * @param username 
+     */   
+    public void setTenUser(String username){ 
         this.lbl_Username.setText(username);
+    }
+    /**
+     * Set Tên role vào form Main
+     * @param Role 
+     */
+          public void setRoleName(String Role){ 
+        this.lbl_role.setText(Role);
       
     }
     
@@ -150,9 +257,16 @@ public class frm_Index extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_KV;
-    private javax.swing.JButton btn_qlnv;
-    private javax.swing.JButton btn_qltk1;
+    private javax.swing.JButton btn_QLBill;
+    private javax.swing.JButton btn_QLDienNuoc;
+    private javax.swing.JButton btn_QLHD;
+    private javax.swing.JButton btn_QLKH;
+    private javax.swing.JButton btn_QLKV;
+    private javax.swing.JButton btn_QLPhong;
+    private javax.swing.JButton btn_QLTK;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lbl_Username;
+    private javax.swing.JLabel lbl_role;
     // End of variables declaration//GEN-END:variables
 }

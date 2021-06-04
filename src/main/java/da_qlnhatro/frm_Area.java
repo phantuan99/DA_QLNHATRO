@@ -22,12 +22,12 @@ import javax.swing.table.DefaultTableModel;
  * @author Phan Tuan
  */
 public class frm_Area extends javax.swing.JFrame {
-    // Gọi Services của KV và NV
-    EmployeeServices NVServices = new EmployeeServices(); 
+    // Gọi các phương thức truy vấn của KV và NV
+    UserAccServices UserServices = new UserAccServices(); 
     AreaServices KVServices = new AreaServices();
     
-    // Tạo danh sách NV và KV
-    ArrayList<Employee> DSNV = new ArrayList<Employee>(); 
+    // Tạo list NV và KV
+    ArrayList<UserAcc> DSUSER = new ArrayList<UserAcc>(); 
     ArrayList<Area> DSKV = new ArrayList<Area>();
      
       Area selectedKV = null;
@@ -67,6 +67,7 @@ public class frm_Area extends javax.swing.JFrame {
         btn_del = new javax.swing.JButton();
         btn_update = new javax.swing.JButton();
         btn_add = new javax.swing.JButton();
+        btn_update1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -97,13 +98,18 @@ public class frm_Area extends javax.swing.JFrame {
         jLabel2.setText("Mã Khu Vực");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel5.setText("Mã Nhân Viên");
+        jLabel5.setText("Nhân Viên");
 
         txt_DiaChi.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
         txt_MaKV.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
         txt_TenKV.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        txt_TenKV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_TenKVActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Tên Khu Vực");
@@ -184,6 +190,14 @@ public class frm_Area extends javax.swing.JFrame {
             }
         });
 
+        btn_update1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btn_update1.setText("Làm mới");
+        btn_update1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_update1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -193,19 +207,22 @@ public class frm_Area extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_add, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_del, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_update, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE))
+                    .addComponent(btn_update, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                    .addComponent(btn_update1, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addContainerGap()
                 .addComponent(btn_add, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btn_del)
-                .addGap(26, 26, 26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_update)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btn_update1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(0, 153, 204));
@@ -261,20 +278,28 @@ public class frm_Area extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
- private void loadMaNV(){
-        cbb_MaNV.removeAllItems();
-        DSNV = NVServices.getAllRecords();
-        for(Employee NV : DSNV){
-            cbb_MaNV.addItem(NV);            
+ /**
+  * Load combobox Nhân viên
+  */
+    private void loadMaNV(){
+        cbb_MaNV.removeAllItems(); // Xóa đi các item đang có
+        DSUSER = UserServices.getAllRecords();// select các giá trị của Nhân viên
+        
+        //Lấy các đối tượng nhân viên trong danh sách nhân viên
+        for(UserAcc User : DSUSER){
+            cbb_MaNV.addItem(User);            
         }  
-        cbb_MaNV.setRenderer(new DefaultListCellRenderer() {
+        // Thực hiện
+        cbb_MaNV.setRenderer(new DefaultListCellRenderer() { 
             @Override
+            // Trả về giá trị đã chỉ định
             public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                if(value instanceof Employee){
-                    Employee NV = (Employee) value;
-                    
-                    setText( String.valueOf( NV.getTenNV()));
+                // Xác định đúng đối tượng UserAccount( Nhân viên
+                if(value instanceof UserAcc){
+                    UserAcc User = (UserAcc) value;                   
+                    setText( String.valueOf( User.getTENNV())); // Lấy tên NV
+                   
                 }
                 return this;
             }
@@ -282,25 +307,27 @@ public class frm_Area extends javax.swing.JFrame {
     }
  
     private void btn_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addActionPerformed
-        
-           String TenKV = txt_MaKV.getText(); 
-           String DiaChi = txt_MaKV.getText(); 
-           Employee MaNV = (Employee)cbb_MaNV.getSelectedItem();
-
-        if(txt_TenKV.getText().equals("") ){
+        //Khai báo biến
+        String TenKV = txt_TenKV.getText(); 
+        String DiaChi = txt_DiaChi.getText(); 
+        UserAcc UserID = (UserAcc)cbb_MaNV.getSelectedItem();
+        //Kiểm tra tên khu vực có rỗng ko
+        if(TenKV.equals("") )
+        {
            JOptionPane.showMessageDialog(null, "Ban can phai nhap TEN KV");
-       }
+        }
         else
         {
-         //call function
-        int rowEffected = KVServices.AddNewRecord(MaNV.getMaNV(),TenKV,DiaChi);
-         if(rowEffected > 0){
-           //  showUserAccounts();
-             JOptionPane.showMessageDialog(null, "Tao moi thanh cong!");
-             showDataList();
-         }            
-         else
-             JOptionPane.showMessageDialog(null, "Tạo mới thất bại");
+           //Gọi đến đến Câu lệnh truy vấn của khu vực(Services)
+           int rowEffected = KVServices.AddNewRecord(UserID.getMaNV(),TenKV,DiaChi);
+           
+           if(rowEffected > 0){
+              
+                JOptionPane.showMessageDialog(null, "Tao moi thanh cong!");
+                showDataList();// Reload lại datalist
+            }            
+            else
+                JOptionPane.showMessageDialog(null, "Tạo mới thất bại");
         }
        txt_MaKV.setText("");
        txt_TenKV.setText("");
@@ -308,24 +335,26 @@ public class frm_Area extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_addActionPerformed
 
     private void btn_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_updateActionPerformed
+          //Khai báo biến
            int MaKV = Integer.valueOf(txt_MaKV.getText());
            String TenKV = txt_TenKV.getText(); 
            String DiaChi = txt_DiaChi.getText(); 
-           Employee MaNV = (Employee)cbb_MaNV.getSelectedItem();
-
+          UserAcc UserID = (UserAcc)cbb_MaNV.getSelectedItem();;
+          
         if(txt_TenKV.getText().equals(""))
         {
            JOptionPane.showMessageDialog(null, "Ban can phai nhap Ten KV");
         }
         else
         {
-         //call function
-        int rowEffected = KVServices.UpdateRecord(MaKV,MaNV.getMaNV(),TenKV,DiaChi);
-            if(rowEffected > 0)
+         // Gọi đến hàm câu lệnh update của khu vực
+        int rowEffected = KVServices.UpdateRecord(MaKV,UserID.getMaNV(),TenKV,DiaChi);
+        //KT điều kiện    
+        if(rowEffected > 0)
             {
               //  showUserAccounts();
                 JOptionPane.showMessageDialog(null, "Cap nhat thanh cong!");
-                showDataList();
+                showDataList(); //Reload lại data list
             }            
             else
                 JOptionPane.showMessageDialog(null, "Cap nhat thất bại");
@@ -336,19 +365,22 @@ public class frm_Area extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_updateActionPerformed
 
     private void btn_delActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_delActionPerformed
+       //Đặt tên biến
         int MaKV = Integer.valueOf(txt_MaKV.getText()); 
+       // Tạo ra thông báo Yes/No Question
         int input = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa?", "Confirmation...",
             JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
         System.out.println("Delete data? =" +input);
-
-      if(!txt_MaKV.getText().equals("") ){
+        
+        // Nếu có lựa chọn thì tiếp tục
+        if(!txt_MaKV.getText().equals("") ){
         if(input == 0)
         {
          
             int rowEffected = KVServices.DeleteRecord(MaKV);
             if(rowEffected > 0){
-                showDataList();
+                showDataList();//Reload lại datalist
                 JOptionPane.showMessageDialog(null, "Xóa thành công!");
             }
             else
@@ -360,18 +392,35 @@ public class frm_Area extends javax.swing.JFrame {
  
     }//GEN-LAST:event_btn_delActionPerformed
 
-     private void showDataList(){
+    private void btn_update1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_update1ActionPerformed
+        txt_MaKV.setText("");
+        txt_DiaChi.setText("");
+        txt_TenKV.setText("");
+    }//GEN-LAST:event_btn_update1ActionPerformed
+
+    private void txt_TenKVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_TenKVActionPerformed
+      
         
+       
+        
+    }//GEN-LAST:event_txt_TenKVActionPerformed
+    
+    /**
+     * Hàm để show danh sách data ở table(grid view)
+     */
+     private void showDataList(){
+        // khai báo model default
         DefaultTableModel model = (DefaultTableModel)this.tab_grid.getModel(); 
         model.setRowCount(0);
                 
-        //load data
+        //khởi tạo list 
         ArrayList<Area> list = KVServices.getAllRecords();
         
-        DSKV = list;
-               
-        Object[] row = new Object[6];
+        DSKV = list; //Dùng khi tìm KV
         
+        // Khởi tạo mảng
+        Object[] row = new Object[6];
+        // đưa dữ liệu tĩnh vào trong table 
         for(int i = 0; i < list.size(); i++){            
             row[0] = list.get(i).getMAKV();
             row[1] = list.get(i).getTENKV();
@@ -381,19 +430,23 @@ public class frm_Area extends javax.swing.JFrame {
                      
             model.addRow(row);
         }
-        
+        //Lớp interface thể hiện vùng chọn tĩnh
         ListSelectionModel cellSelectionModel = tab_grid.getSelectionModel();
+        //Chế độ chọn đơn
         cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         //Dang ky event click tren danh sach        
         cellSelectionModel.addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {
-                //goi ham show data chi tiet
+                //goi đến sự kiện thay đổi chọn
                 gridSelectedChanged(e);
             }
           });
     }
-     
+     /**
+      * Sử dụng để thể hiện thay đổi khi click vào đối tượng table
+      */
       public void gridSelectedChanged(ListSelectionEvent e) {
+       // Khai báo biến
        String selectedData = null; 
        int selectedID = 0; 
        
@@ -405,10 +458,9 @@ public class frm_Area extends javax.swing.JFrame {
        
        if(selectedRow >=0 && selectedColumn >=0){
            selectedData = String.valueOf(tab_grid.getValueAt(selectedRow, selectedColumn));
-           selectedID = (int) tab_grid.getValueAt(selectedRow, 0);
+           selectedID = (int) tab_grid.getValueAt(selectedRow, 0); // phần tử số 0 sẽ là ID
            
-           selectedKV = findKV(selectedID,DSKV);
-           MaKV = selectedID;
+           selectedKV= findKV(selectedID,DSKV); 
            System.out.println("Selected: " + selectedData + " , value: " + selectedID);
                if(selectedID != 0){
                showDataDetail(selectedID,
@@ -425,13 +477,13 @@ public class frm_Area extends javax.swing.JFrame {
         txt_TenKV.setText(TenKV);
           if( selectedKV != null)
           {
-              cbb_MaNV.setSelectedItem(findNV(selectedKV.getMANV(), DSNV));
+              cbb_MaNV.setSelectedItem(findUser(selectedKV.getMANV(), DSUSER));
           }
       }
       
-       public Employee findNV(int MaNV, ArrayList<Employee> NV) {
-        for (Employee item : NV) {
-              if (item.getMaNV() != MaNV) {
+       public UserAcc findUser(int MaNV, ArrayList<UserAcc> User) {
+        for (UserAcc item : User) {
+              if (item.getMaNV() == MaNV) {
                   return item;
               }
           }
@@ -440,7 +492,7 @@ public class frm_Area extends javax.swing.JFrame {
        
         public Area findKV(int MaKV, ArrayList<Area> DSKV) {
         for (Area item : DSKV) {
-              if (item.getMAKV()!= MaKV) {
+              if (item.getMAKV()== MaKV) {
                   return item;
               }
           }
@@ -485,7 +537,8 @@ public class frm_Area extends javax.swing.JFrame {
     private javax.swing.JButton btn_add;
     private javax.swing.JButton btn_del;
     private javax.swing.JButton btn_update;
-    private javax.swing.JComboBox<Employee> cbb_MaNV;
+    private javax.swing.JButton btn_update1;
+    private javax.swing.JComboBox<UserAcc> cbb_MaNV;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

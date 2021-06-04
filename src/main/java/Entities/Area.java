@@ -9,18 +9,24 @@ package Entities;
  *
  * @author PhanTuan
  */
-public class Area {
-     private int MAKV, MANV;
-   
-   private String TENKV,DIACHIKV;
 
+/**
+ * 
+ * Chứa Constructor và Getter, Setter của khu vực
+ */
+public class Area {  
+    //Tạo biến
+   private int MAKV, MANV;
+   private String TENKV,DIACHIKV;
+//Constructor
     public Area(int MAKV, int MANV, String TENKV, String DIACHIKV) {
         this.MAKV = MAKV;
         this.MANV = MANV;
         this.TENKV = TENKV;
         this.DIACHIKV = DIACHIKV;
     }
-
+    
+//Khởi tạo Get,Set
     public int getMAKV() {
         return MAKV;
     }

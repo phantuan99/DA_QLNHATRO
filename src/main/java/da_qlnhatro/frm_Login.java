@@ -24,7 +24,7 @@ public class frm_Login extends javax.swing.JFrame {
         this.setTitle("HỆ THỐNG QUẢN LÝ NHÀ TRỌ");
         
         this.getRootPane().setDefaultButton(btn_Login);
-        txt_Username.requestFocus();
+       // txt_Username.requestFocus();
         
         try{
         SqlConnection sqlConn = new SqlConnection();
@@ -115,33 +115,51 @@ public class frm_Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LoginActionPerformed
-             try{
+            try{
             String username = txt_Username.getText().trim();
             String pass = new String(txt_Pass.getPassword()).trim();
-
+            
+            //Kiểm tra điều kiện TK và MK có rỗng không
             if(username.isEmpty() || pass.isEmpty()){
                 JOptionPane.showMessageDialog(null, "Username hoac password khong hop le");
                 return;
             }
             else{
                 SqlDataAccess acc = new SqlDataAccess();
-                ResultSet rs = acc.Query("select * from UserAccount where MANV='" + username +"' and password='" + pass +"'");
+                String sql = "select * from UserAccount where MANV='" + username +"' and password='" + pass +"'";
+                acc.Query(sql);
+                ResultSet rs = acc.Query(sql);
+                
                 if(rs.next()){
                     JOptionPane.showMessageDialog(null, "Đăng nhập thành công");
-                    //close form
-                    this.dispose();
                     
-                    //open form Main                    
-                    frm_Index frMain = new frm_Index();
-                    //Truyen thong tin qua form Main co menu
-                    frMain.setTenUser(txt_Username.getText());
-                    frMain.userRole = "Admin"; //lay tu combox 
-                                                                                
-                    //vi tri giua man hinh va maximize
-                    frMain.pack();
-                    frMain.setLocationRelativeTo(null);
-                    frMain.setVisible(true);
-                    //frMain.setExtendedState(frMain.MAXIMIZED_BOTH);
+         
+                 
+                    
+                         
+                    frm_Index Index = new frm_Index();  
+                    
+                     String sql2 = "select * from UserAccount where MANV='" + username +"' and password='" + pass +"'and Role = 1";
+                      SqlDataAccess acc2 = new SqlDataAccess();
+                      acc2.Query(sql2);
+                      ResultSet rs2 = acc.Query(sql2);
+                      if(rs2.next())
+                      {
+                       
+                        this.dispose();                                                    
+              
+                        Index.setRoleName("Admin");
+                
+                      }
+                      else
+                      {
+                           Index.setRoleName("User");
+                      }
+                        Index.setTenUser(txt_Username.getText());
+                        Index.pack();
+                        Index.setLocationRelativeTo(null);
+                        Index.setVisible(true);
+                     
                 }
                 else
                     JOptionPane.showMessageDialog(null, "Dang nhap that bai");

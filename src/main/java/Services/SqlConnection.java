@@ -15,22 +15,21 @@ import javax.swing.JOptionPane;
  *
  * @author PhanTuan
  */
+/**
+ * 
+ * Hàm khởi tạo và kiểm tra kết nối đến SQL Server
+ */
 public class SqlConnection {
     
-   //Thực hiện kết nối đến database
+   /**
+    * Khởi tạo connection tới SQL server 
+    */
     public Connection getConnection() throws ClassNotFoundException{
             Connection conn = null;
-        try{
-                //Connect SQL Server DB voi username, password
-                //String connectionUrl = "jdbc:sqlserver://localhost\\sqlexpress:1433;user=sa;password=secret";
-
-                //Connect SQL Server DB voi integratedSecurity
-            String connectionUrl = "jdbc:sqlserver://localhost:1433;"
+        try{          
+                String connectionUrl = "jdbc:sqlserver://localhost:1433;"
                             + "databaseName=QL_NHATRO;user=sa;password=123;";
-
-          //  Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             conn = DriverManager.getConnection(connectionUrl);        				
-
             return conn;
         }
         catch(Exception ex){
@@ -39,7 +38,7 @@ public class SqlConnection {
         }
     }
 	// Kiểm tra kết nối
-    public void testConnection() throws ClassNotFoundException{
+        public void testConnection() throws ClassNotFoundException{
         Connection conn = null;
         try {       
         // Test connection			

@@ -16,22 +16,31 @@ import java.sql.Statement;
  */
 
 import Services.*;
+/**
+ * 
+ * Dùng để kết nối database và chứa các câu lệnh thực thi vào database
+ */
 public class SqlDataAccess {
    
-	private Connection conn;
+    // Khởi tạo đối tượng statement 
+    private Connection conn; 
     private Statement stmt;
-    
+ 
     public SqlDataAccess(){
         try{
-            SqlConnection myCon = new SqlConnection();
-            conn = myCon.getConnection();
+            SqlConnection myCon = new SqlConnection(); 
+            conn = myCon.getConnection(); 
             stmt = conn.createStatement();
         }
-        catch(Exception ex){
-        	
+        catch(Exception ex){      	
         }        
     }
-    //INSERT, UPDATE, DELETE    
+   /**
+    * Lệnh thực thi khi có cập nhật ở CSDL
+    * Truyền vào câu lệnh truy vấn thêm, xóa, sửa
+    * @param str
+    * @return 
+    */  
     public int Update(String str){
         try{
             int i = stmt.executeUpdate(str);
@@ -41,7 +50,12 @@ public class SqlDataAccess {
             return -1;
         }
     }
-    //SELECT
+     /**
+    * Lệnh thực thi khi select dữ liệu
+    * Truyền vào câu lệnh truy vấn select
+    * @param str
+    * @return 
+    */  
     public ResultSet Query(String str){
         try{
             ResultSet rs = stmt.executeQuery(str);
