@@ -146,8 +146,6 @@ public class frm_Login extends javax.swing.JFrame {
                       if(rs2.next())
                       {
                        
-                        this.dispose();                                                    
-              
                         Index.setRoleName("Admin");
                 
                       }
@@ -164,6 +162,7 @@ public class frm_Login extends javax.swing.JFrame {
                 else
                     JOptionPane.showMessageDialog(null, "Dang nhap that bai");
             }
+            this.dispose();  
         }
         catch(Exception ex){
             JOptionPane.showMessageDialog(null, ex);

@@ -8,16 +8,25 @@ package da_qlnhatro;
 
 
 import Entities.UserAcc;
+import Services.SqlConnection;
 import Services.UserAccServices;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.swing.JRViewer;
 
 /**
  *
@@ -39,6 +48,7 @@ public class frm_UserAccount extends javax.swing.JFrame {
    private int MaNV = 0;// Khai báo Mã NV là 0
     public frm_UserAccount() {
         initComponents();
+        this.setTitle("HỆ THỐNG QUẢN LÝ NHÀ TRỌ/QUẢN LÝ USER");
         showDataList();
     }
 
@@ -59,6 +69,7 @@ public class frm_UserAccount extends javax.swing.JFrame {
         btn_add = new javax.swing.JButton();
         btn_home = new javax.swing.JButton();
         btn_reload = new javax.swing.JButton();
+        btn_xuatNV = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         chk_role = new javax.swing.JCheckBox();
@@ -138,36 +149,44 @@ public class frm_UserAccount extends javax.swing.JFrame {
             }
         });
 
+        btn_xuatNV.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        btn_xuatNV.setText("Xuất DS Nhân Viên");
+        btn_xuatNV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_xuatNVActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_update, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_reload, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_del, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_add, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_home, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_del, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_update, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_xuatNV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_home, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_reload, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_add, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btn_add, btn_del, btn_home, btn_reload, btn_update});
-
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(80, 80, 80)
+                .addGap(43, 43, 43)
                 .addComponent(btn_add, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btn_del, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_update, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23)
+                .addGap(18, 18, 18)
                 .addComponent(btn_reload, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_home, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btn_xuatNV, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -328,7 +347,7 @@ public class frm_UserAccount extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(356, 356, 356)
+                .addGap(369, 369, 369)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -505,6 +524,40 @@ public static boolean valEmail(String input)
                this.dispose();
     }//GEN-LAST:event_btn_homeActionPerformed
 
+    private void btn_xuatNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xuatNVActionPerformed
+        try {
+            SqlConnection sqlConn = new SqlConnection();              
+ 
+            Map parameters = new HashMap();
+            
+            String workingDir = System.getProperty("user.dir");
+ 
+            String file = workingDir + "/src/main/java/Report/DSNV.jasper"; 
+
+            System.out.println("Current working directory : " + file);
+
+            
+            JasperReport report = (JasperReport) JRLoader.loadObjectFromFile(file);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(report, parameters, sqlConn.getConnection());            
+            
+            //JasperViewer.viewReport(jasperPrint);
+                                    
+            JFrame frame = new JFrame("Report");
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            frame.getContentPane().add(new JRViewer(jasperPrint));
+            frame.setExtendedState( frame.getExtendedState()|JFrame.MAXIMIZED_BOTH );
+            frame.pack();
+            frame.setVisible(true);
+                        
+      
+
+            System.out.print("Successful!");
+                
+        } catch (Exception e) {
+                System.out.print(e.toString());
+        }
+    }//GEN-LAST:event_btn_xuatNVActionPerformed
+
     /**
      * Dùng để show data ra gridview
      */
@@ -642,6 +695,7 @@ public static boolean valEmail(String input)
     private javax.swing.JButton btn_home;
     private javax.swing.JButton btn_reload;
     private javax.swing.JButton btn_update;
+    private javax.swing.JButton btn_xuatNV;
     private javax.swing.JCheckBox chk_role;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel17;

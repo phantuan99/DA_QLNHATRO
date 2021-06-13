@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DSNV" pageWidth="750" pageHeight="842" columnWidth="710" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1c23c020-9cda-4dd1-b023-0390e350b273">
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.xml"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<queryString>
+		<![CDATA[select *
+from UserAccount
+]]>
+	</queryString>
+	<field name="MANV" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="MANV"/>
+		<property name="com.jaspersoft.studio.field.label" value="MANV"/>
+	</field>
+	<field name="Password" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Password"/>
+		<property name="com.jaspersoft.studio.field.label" value="Password"/>
+	</field>
+	<field name="Role" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="Role"/>
+		<property name="com.jaspersoft.studio.field.label" value="Role"/>
+	</field>
+	<field name="TENNV" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="TENNV"/>
+		<property name="com.jaspersoft.studio.field.label" value="TENNV"/>
+	</field>
+	<field name="SDT" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="SDT"/>
+		<property name="com.jaspersoft.studio.field.label" value="SDT"/>
+	</field>
+	<field name="EMAIL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="EMAIL"/>
+		<property name="com.jaspersoft.studio.field.label" value="EMAIL"/>
+	</field>
+	<field name="DIACHI" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="DIACHI"/>
+		<property name="com.jaspersoft.studio.field.label" value="DIACHI"/>
+	</field>
+	<field name="NGAYSINH" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="NGAYSINH"/>
+		<property name="com.jaspersoft.studio.field.label" value="NGAYSINH"/>
+	</field>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="750" height="92" backcolor="#006699" uuid="817d2e94-333e-4086-a9f0-f1789d1e4961"/>
+				<staticText>
+					<reportElement x="0" y="20" width="750" height="43" forecolor="#FFFFFF" uuid="f52b8ce2-73f6-4226-8b48-60c22d900d28"/>
+					<textElement textAlignment="Center">
+						<font size="34" isBold="true"/>
+					</textElement>
+					<text><![CDATA[DANH SÁCH NHÂN VIÊN]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="410" y="63" width="180" height="20" forecolor="#FFFFFF" uuid="34d5365d-3873-41c4-9837-3826b67f2425"/>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement x="-20" y="20" width="750" height="1" forecolor="#666666" uuid="b3ddcbc0-bb53-465d-b995-fac4ca6c1ecf"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="350" y="0" width="110" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="5fe89938-77a0-417b-87c3-a13bb83a2519"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Số Điện Thoại]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="232" y="0" width="110" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="08a5f47c-19fe-4611-9f31-6c1c282eff22"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ngày Sinh]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="110" y="0" width="110" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="3cce0d2e-3f26-4c8d-a13c-163598eebd36"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tên Nhân Viên]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="590" y="0" width="110" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="37600a18-87a7-4207-93a6-6223c1dd569e"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Email]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="470" y="0" width="110" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="974a0708-3fb3-47ec-a8a4-9319dbdea7d1"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Địa Chỉ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="-10" y="0" width="110" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="d0352906-4c59-4f9d-8c88-4c6b611555fe"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mã Nhân Viên]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="60">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="20" width="710" height="1" uuid="11f80165-1f3c-40a2-8666-c072c42d2d40"/>
+			</line>
+			<textField>
+				<reportElement x="470" y="20" width="100" height="30" uuid="062885dc-2ae9-4c20-90ab-7c4595f1252c"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{DIACHI}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="350" y="20" width="100" height="30" uuid="be86bfef-538a-4808-bca4-faab6ff88565"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{SDT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="590" y="20" width="100" height="30" uuid="bdfae0c0-e06b-486c-882a-60f62a41a1dc"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{EMAIL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="232" y="20" width="100" height="30" uuid="3c24957c-11f7-44d1-9670-bac07799bd9b"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{NGAYSINH}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="20" width="100" height="30" uuid="19e69971-9c2b-42cd-a6e2-2a452d4cc9c9"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{TENNV}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-5" y="20" width="100" height="30" uuid="13e04d89-12df-4c67-96f3-8287ac065729"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{MANV}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="2" width="663" height="13" backcolor="#E6E6E6" uuid="32c6837b-8e99-4dfa-b286-6480c6def45e"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="663" y="2" width="40" height="13" backcolor="#E6E6E6" uuid="58e5483f-5de8-4d2a-86a5-e971ad5676ad"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="10" y="2" width="100" height="13" uuid="77e5c807-b03c-4535-b0b8-71d9a3b50d8a"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

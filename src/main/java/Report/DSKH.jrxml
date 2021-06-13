@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Simple_Blue" pageWidth="730" pageHeight="842" columnWidth="690" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bfcb4dca-7e8c-4c80-85a2-b163c1a3dc0e">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.xml"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<queryString>
+		<![CDATA[select *
+from KHACHHANG]]>
+	</queryString>
+	<field name="MAKH" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="MAKH"/>
+		<property name="com.jaspersoft.studio.field.label" value="MAKH"/>
+	</field>
+	<field name="TENKH" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="TENKH"/>
+		<property name="com.jaspersoft.studio.field.label" value="TENKH"/>
+	</field>
+	<field name="NGAYSINH" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="NGAYSINH"/>
+		<property name="com.jaspersoft.studio.field.label" value="NGAYSINH"/>
+	</field>
+	<field name="SDT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="SDT"/>
+		<property name="com.jaspersoft.studio.field.label" value="SDT"/>
+	</field>
+	<field name="DIACHI" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="DIACHI"/>
+		<property name="com.jaspersoft.studio.field.label" value="DIACHI"/>
+	</field>
+	<field name="EMAIL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="EMAIL"/>
+		<property name="com.jaspersoft.studio.field.label" value="EMAIL"/>
+	</field>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="730" height="92" backcolor="#006699" uuid="80690b6c-738c-442f-ad56-bf2728733a38"/>
+				<staticText>
+					<reportElement x="0" y="20" width="730" height="43" forecolor="#FFFFFF" uuid="dbcbc4ae-48b4-406a-ad41-995f9e26e0b2"/>
+					<textElement textAlignment="Center">
+						<font size="34" isBold="true"/>
+					</textElement>
+					<text><![CDATA[DANH SÁCH KHÁCH HÀNG]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="550" y="70" width="180" height="20" forecolor="#FFFFFF" uuid="9582aef0-e44b-4b0e-a4ec-1cbe54bb03ec"/>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="40">
+			<line>
+				<reportElement x="-20" y="20" width="730" height="1" forecolor="#666666" uuid="0d6e4db1-0987-4dbf-ac39-6bd9596dbb5e"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="-10" y="0" width="110" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="289f95cf-5182-4f0f-bede-1ecac95c86c9"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mã Khách Hàng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="232" y="0" width="110" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="03a05357-0e3b-4f2b-a6e9-f18a126b449f"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ngày Sinh]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="110" y="0" width="110" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="7bf0473e-d1de-4b09-81ea-dd621ed66cd5"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tên Khách Hàng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="470" y="0" width="110" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="bc387e46-20fe-4071-b374-8588384e83ef"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Địa Chỉ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="350" y="0" width="110" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="31138dae-c7db-4645-becc-bf2d648114ea"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Số Điện Thoại]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="590" y="0" width="110" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="3227c674-6a4e-47cd-89d3-dde737fab021"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Email]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="35">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="20" width="700" height="1" uuid="c6060bb1-b4dc-412d-88f7-34f43a975119"/>
+			</line>
+			<textField>
+				<reportElement x="-10" y="0" width="100" height="30" uuid="43508e28-2d23-4c90-b0c1-3b2cbf4863ec"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{MAKH}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="0" width="100" height="30" uuid="8229246e-1e68-4853-adb6-b4c049203253"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{TENKH}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="232" y="0" width="100" height="30" uuid="3ae416c2-da86-465b-8497-aeefabedaaf4"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{NGAYSINH}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="350" y="0" width="100" height="30" uuid="d4bd092e-ae38-429c-9f1f-ecc9fdd3bfcf"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{SDT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="470" y="0" width="100" height="30" uuid="5675dcad-1b7a-4d6b-bc18-ca6aa8d99aa9"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{DIACHI}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="590" y="0" width="100" height="30" uuid="7c1d88d5-ca10-48b3-b203-63e85e6e5ed8"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{EMAIL}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="690" height="13" backcolor="#E6E6E6" uuid="9dec0ee2-266c-494f-bed3-7093d93ef742"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="f24f9bee-0ba4-465f-b937-9d47c23d4d8c"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" uuid="d3fa8a0a-75d7-4174-9a41-e8e52f07ee9f"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

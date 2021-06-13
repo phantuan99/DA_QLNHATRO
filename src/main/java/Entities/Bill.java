@@ -10,7 +10,19 @@ package Entities;
  * @author PhanTuan
  */
 public class Bill {
-    private int MAHOADON,MAKV,MAPHONG,SOKWDIEN,SOKWNUOC,TIENDIEN,TIENNUOC;
+    private int MAHOADON,MAKV,MAPHONG,SOKWDIEN,SOKWNUOC,TIENDIEN,TIENNUOC,THANG,NAM;
+
+    public Bill(int MAHOADON, int MAKV, int MAPHONG, int SOKWDIEN, int SOKWNUOC, int TIENDIEN, int TIENNUOC, int THANG, int NAM) {
+        this.MAHOADON = MAHOADON;
+        this.MAKV = MAKV;
+        this.MAPHONG = MAPHONG;
+        this.SOKWDIEN = SOKWDIEN;
+        this.SOKWNUOC = SOKWNUOC;
+        this.TIENDIEN = TIENDIEN;
+        this.TIENNUOC = TIENNUOC;
+        this.THANG = THANG;
+        this.NAM = NAM;
+    }
 
     public int getMAHOADON() {
         return MAHOADON;
@@ -68,13 +80,22 @@ public class Bill {
         this.TIENNUOC = TIENNUOC;
     }
 
-    public Bill(int MAHOADON, int MAKV, int MAPHONG, int SOKWDIEN, int SOKWNUOC, int TIENDIEN, int TIENNUOC) {
-        this.MAHOADON = MAHOADON;
-        this.MAKV = MAKV;
-        this.MAPHONG = MAPHONG;
-        this.SOKWDIEN = SOKWDIEN;
-        this.SOKWNUOC = SOKWNUOC;
-        this.TIENDIEN = TIENDIEN;
-        this.TIENNUOC = TIENNUOC;
+    public int getTHANG() {
+        return THANG;
     }
+
+    public void setTHANG(int THANG) {
+        this.THANG = THANG;
+    }
+
+    public int getNAM() {
+        return NAM;
+    }
+
+    public void setNAM(int NAM) {
+        this.NAM = NAM;
+    }
+    
+   
+
 }

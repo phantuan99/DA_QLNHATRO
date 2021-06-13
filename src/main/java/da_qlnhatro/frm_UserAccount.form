@@ -142,14 +142,15 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btn_update" linkSize="3" alignment="0" min="-2" pref="149" max="-2" attributes="0"/>
-                      <Component id="btn_reload" linkSize="3" alignment="0" min="-2" pref="159" max="-2" attributes="0"/>
-                      <Component id="btn_del" linkSize="3" alignment="1" min="-2" pref="149" max="-2" attributes="0"/>
-                      <Component id="btn_add" linkSize="3" alignment="1" min="-2" pref="149" max="-2" attributes="0"/>
-                      <Component id="btn_home" linkSize="3" alignment="1" min="-2" pref="149" max="-2" attributes="0"/>
+                      <Component id="btn_del" max="32767" attributes="0"/>
+                      <Component id="btn_update" max="32767" attributes="0"/>
+                      <Component id="btn_xuatNV" max="32767" attributes="0"/>
+                      <Component id="btn_home" max="32767" attributes="0"/>
+                      <Component id="btn_reload" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btn_add" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -158,16 +159,18 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                   <Component id="btn_add" linkSize="4" min="-2" pref="34" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btn_del" linkSize="4" min="-2" pref="33" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btn_update" linkSize="4" min="-2" pref="34" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btn_reload" linkSize="4" min="-2" pref="32" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btn_home" linkSize="4" min="-2" pref="32" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="btn_xuatNV" min="-2" pref="32" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -227,6 +230,17 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_reloadActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btn_xuatNV">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="18" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Xu&#x1ea5;t DS Nh&#xe2;n Vi&#xea;n"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_xuatNVActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
@@ -495,7 +509,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="356" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="369" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>

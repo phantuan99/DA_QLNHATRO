@@ -37,6 +37,7 @@ public class frm_DienNuoc extends javax.swing.JFrame {
     
     public frm_DienNuoc() {
         initComponents();
+        this.setTitle("HỆ THỐNG QUẢN LÝ NHÀ TRỌ/QUẢN LÝ ĐIỆN NƯỚC");
         loadKV();
         showDataList();
     }
@@ -199,6 +200,7 @@ public class frm_DienNuoc extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        btn_add.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btn_add.setText("Thêm");
         btn_add.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -206,6 +208,7 @@ public class frm_DienNuoc extends javax.swing.JFrame {
             }
         });
 
+        btn_del.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btn_del.setText("Xóa");
         btn_del.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -213,8 +216,10 @@ public class frm_DienNuoc extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton3.setText("Làm mới");
 
+        btn_update.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btn_update.setText("Sửa");
         btn_update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -222,7 +227,13 @@ public class frm_DienNuoc extends javax.swing.JFrame {
             }
         });
 
+        jButton4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton4.setText("Trang chủ");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -385,12 +396,14 @@ public class frm_DienNuoc extends javax.swing.JFrame {
             Area KV = (Area) cbb_KV.getSelectedItem();
             String GiaDien = txt_GiaDien.getText();
              String GiaNuoc = txt_GiaNuoc.getText();
-        if(txt_GiaDien.getText().equals(""))
+        if(GiaDien.equals("")  )
         {
-            JOptionPane.showMessageDialog(null, "Bạn cần phải nhập giá điện");
+            JOptionPane.showMessageDialog(null, "Bạn cần phải nhập giá điện ");
         }
-        
-        
+        else if(GiaNuoc.equals(""))
+        {
+            JOptionPane.showMessageDialog(null, "Bạn cần phải nhập  giá nước");
+        }
         else
         { 
          //call function
@@ -453,6 +466,12 @@ public class frm_DienNuoc extends javax.swing.JFrame {
              JOptionPane.showMessageDialog(null, "Cập nhật thất bại");
         }
     }//GEN-LAST:event_btn_updateActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+       this.dispose();
+        frm_Index Home = new frm_Index();
+        Home.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
