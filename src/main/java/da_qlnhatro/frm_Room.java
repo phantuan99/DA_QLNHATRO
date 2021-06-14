@@ -146,6 +146,7 @@ public class frm_Room extends javax.swing.JFrame {
         jLabel5.setText("Trạng thái");
 
         txtMaPhong.setEditable(false);
+        txtMaPhong.setBackground(new java.awt.Color(204, 204, 255));
         txtMaPhong.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         cbxKhuVuc.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -279,6 +280,7 @@ public class frm_Room extends javax.swing.JFrame {
         jLabel15.setText("Sức chứa");
 
         txtMaloai.setEditable(false);
+        txtMaloai.setBackground(new java.awt.Color(204, 204, 255));
         txtMaloai.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -450,6 +452,7 @@ public class frm_Room extends javax.swing.JFrame {
         if(rowEffected > 0){
             //load lại bảng phòng trọ
             LoadGridRoom();
+            txtMaPhong.setText("");
             //hiện thông báo thêm thành công
             JOptionPane.showMessageDialog(null, "Thêm thành công!");
         }
@@ -486,6 +489,7 @@ public class frm_Room extends javax.swing.JFrame {
             if(rowEffected > 0){
                 //load lại bảng phòng trọ
                 LoadGridRoom();
+                txtMaPhong.setText("");
                 //hiện thông báo sửa thành công
                 JOptionPane.showMessageDialog(null, "Sửa thành công!");
             }
@@ -518,6 +522,7 @@ public class frm_Room extends javax.swing.JFrame {
                 if(rowEffected > 0){
                     //load lại bảng phòng trọ
                     LoadGridRoom();
+                    txtMaPhong.setText("");
                     //hiện thông báo xóa thành công
                     JOptionPane.showMessageDialog(null, "Xóa thành công!");
                 }
@@ -551,6 +556,10 @@ public class frm_Room extends javax.swing.JFrame {
             LoadArea();
             //load lại combobox loại phòng
             LoadRoomType();
+            txtMaloai.setText("");
+            txtTenLoai.setText("");
+            txtDonGia.setText("");
+            spnSucchua.setValue(0);
             //hiển thị thông báo thêm thành công
             JOptionPane.showMessageDialog(null, "Thêm thành công!");
         }
@@ -579,6 +588,10 @@ public class frm_Room extends javax.swing.JFrame {
                 LoadArea();
                 //load lại combobox loại phòng
                 LoadRoomType();
+                txtMaloai.setText("");
+                txtTenLoai.setText("");
+                txtDonGia.setText("");
+                spnSucchua.setValue(0);
                 //hiển thị thông báo sửa thành công
                 JOptionPane.showMessageDialog(null, "Sửa thành công!");
             }
@@ -614,6 +627,10 @@ public class frm_Room extends javax.swing.JFrame {
                     LoadArea();
                     //load lại combobox loại phòng
                     LoadRoomType();
+                    txtMaloai.setText("");
+                    txtTenLoai.setText("");
+                    txtDonGia.setText("");
+                    spnSucchua.setValue(0);
                     //hiện thông báo xóa thành công
                     JOptionPane.showMessageDialog(null, "Xóa thành công!");
                 }

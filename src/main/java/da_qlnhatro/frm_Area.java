@@ -67,7 +67,7 @@ public class frm_Area extends javax.swing.JFrame {
         btn_del = new javax.swing.JButton();
         btn_update = new javax.swing.JButton();
         btn_add = new javax.swing.JButton();
-        btn_update1 = new javax.swing.JButton();
+        btn_refresh = new javax.swing.JButton();
         btn_home = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -191,11 +191,11 @@ public class frm_Area extends javax.swing.JFrame {
             }
         });
 
-        btn_update1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btn_update1.setText("Làm Mới");
-        btn_update1.addActionListener(new java.awt.event.ActionListener() {
+        btn_refresh.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btn_refresh.setText("Làm Mới");
+        btn_refresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_update1ActionPerformed(evt);
+                btn_refreshActionPerformed(evt);
             }
         });
 
@@ -217,7 +217,7 @@ public class frm_Area extends javax.swing.JFrame {
                     .addComponent(btn_add, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_del, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_update, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
-                    .addComponent(btn_update1, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                    .addComponent(btn_refresh, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
                     .addComponent(btn_home, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -231,7 +231,7 @@ public class frm_Area extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_update)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btn_update1)
+                .addComponent(btn_refresh)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btn_home)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -499,11 +499,11 @@ public class frm_Area extends javax.swing.JFrame {
  
     }//GEN-LAST:event_btn_delActionPerformed
 
-    private void btn_update1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_update1ActionPerformed
+    private void btn_refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_refreshActionPerformed
         txt_MaKV.setText("");
         txt_DiaChi.setText("");
         txt_TenKV.setText("");
-    }//GEN-LAST:event_btn_update1ActionPerformed
+    }//GEN-LAST:event_btn_refreshActionPerformed
 
     private void txt_TenKVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_TenKVActionPerformed
       
@@ -558,8 +558,8 @@ public class frm_Area extends javax.swing.JFrame {
     private javax.swing.JButton btn_add;
     private javax.swing.JButton btn_del;
     private javax.swing.JButton btn_home;
+    private javax.swing.JButton btn_refresh;
     private javax.swing.JButton btn_update;
-    private javax.swing.JButton btn_update1;
     private javax.swing.JComboBox<UserAcc> cbb_MaNV;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
