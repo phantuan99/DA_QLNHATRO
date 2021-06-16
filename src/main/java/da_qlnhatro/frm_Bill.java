@@ -36,6 +36,7 @@ import net.sf.jasperreports.swing.JRViewer;
  */
 public class frm_Bill extends javax.swing.JFrame {
     RoomServices roomServices = new RoomServices();
+    RoomTypeServices roomTypeServices = new RoomTypeServices();
     AreaServices areaServices = new AreaServices();
     ArrayList<Room> dsRoom = new ArrayList<Room>();
     ArrayList<Area> dsArea = new ArrayList<Area>();
@@ -96,7 +97,14 @@ public class frm_Bill extends javax.swing.JFrame {
                 }
                 return null;
             }
-            
+            private RoomType findRoomType(int maloai, ArrayList<RoomType> dsRoomType){
+                for(RoomType item : dsRoomType){
+                    if(item.getMALOAI() == maloai){
+                        return item;
+                    }
+                }
+                return null;
+            }
    
             
     
@@ -244,6 +252,8 @@ public class frm_Bill extends javax.swing.JFrame {
         txt_KhoiNuoc = new javax.swing.JTextField();
         cbb_month = new javax.swing.JComboBox<>();
         cbb_Nam = new javax.swing.JComboBox<>();
+        jLabel11 = new javax.swing.JLabel();
+        txtDonGia = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -435,6 +445,13 @@ public class frm_Bill extends javax.swing.JFrame {
 
         cbb_month.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", " " }));
 
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel11.setText("Giá phòng");
+
+        txtDonGia.setEditable(false);
+        txtDonGia.setBackground(new java.awt.Color(204, 204, 255));
+        txtDonGia.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -452,7 +469,8 @@ public class frm_Bill extends javax.swing.JFrame {
                             .addComponent(jLabel7)
                             .addComponent(jLabel5)
                             .addComponent(jLabel9)
-                            .addComponent(jLabel2))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel11))
                         .addGap(21, 21, 21)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cbxKhuVuc, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -477,7 +495,8 @@ public class frm_Bill extends javax.swing.JFrame {
                                                 .addGap(18, 18, 18)
                                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                     .addComponent(txt_ThanhTienNuoc)
-                                                    .addComponent(cbb_Nam, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                                    .addComponent(cbb_Nam, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                    .addComponent(txtDonGia, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
@@ -498,6 +517,10 @@ public class frm_Bill extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(txtDonGia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jLabel6)
                     .addComponent(txt_ThanhTienDien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -514,7 +537,7 @@ public class frm_Bill extends javax.swing.JFrame {
                     .addComponent(jLabel10)
                     .addComponent(cbb_month, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbb_Nam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cbxKhuVuc, txt_MaHD});
@@ -755,6 +778,7 @@ public class frm_Bill extends javax.swing.JFrame {
     private javax.swing.JComboBox<Room> cbxPhong;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -768,6 +792,7 @@ public class frm_Bill extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tab_grid;
+    private javax.swing.JTextField txtDonGia;
     private javax.swing.JTextField txt_KWDien;
     private javax.swing.JTextField txt_KhoiNuoc;
     private javax.swing.JTextField txt_MaHD;
@@ -833,6 +858,19 @@ public class frm_Bill extends javax.swing.JFrame {
             return this;
             }
 
+        });
+        //get đơn giá
+        cbxPhong.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(e.getStateChange() == ItemEvent.SELECTED){
+                   Room room = (Room) cbxPhong.getSelectedItem();
+                   int maloai = room.getMALOAI();
+                   ArrayList<RoomType> dsRoomType = roomTypeServices.getAllRecords();
+                   int dongia = findRoomType(maloai, dsRoomType).getDONGIA();
+                   txtDonGia.setText(dongia+"");
+                }
+            }
         });
     }
 }
