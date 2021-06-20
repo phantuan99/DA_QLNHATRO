@@ -156,4 +156,20 @@ public class ContractServices {
         }
         return rowCount;
     }
+      public int DeleteRecordKH(int makh){
+        int rowCount = 0;
+        try{
+                
+            SqlDataAccess acc = new SqlDataAccess();
+            String sql = "DELETE FROM HOPDONG WHERE MAKH = " + makh;
+            
+            System.out.println(sql);
+            
+            rowCount = acc.Update(sql);
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return rowCount;
+    }
 }

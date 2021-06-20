@@ -6,6 +6,7 @@
 package da_qlnhatro;
 
 import Entities.Customer;
+import Services.ContractServices;
 import Services.CustomerServices;
 import Services.SqlConnection;
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ import net.sf.jasperreports.swing.JRViewer;
 public class frm_Customer extends javax.swing.JFrame {
     //khai báo customerServices để đển thêm, xóa, sửa cơ sở dữ liệu.
     CustomerServices customerServices = new CustomerServices();
-    
+    ContractServices contractServices = new ContractServices();
     //ArrayList<Customer> dsKH =  new ArrayList<Customer>();
     /**
      * Creates new form frm_Customer
@@ -418,7 +419,9 @@ public class frm_Customer extends javax.swing.JFrame {
             if(input == 0)
             {
                 //khai báo biến thực thi lệnh SQL và xác nhận xóa thành công hay thất bại
+                int rowEffected2 = contractServices.DeleteRecordKH(makh);
                 int rowEffected = customerServices.DeleteRecord(makh);
+                
                 //nếu biến lớn hơn 0 thì thành công
                 if(rowEffected > 0){
                     //load lại bảng danh sách khách hàng
