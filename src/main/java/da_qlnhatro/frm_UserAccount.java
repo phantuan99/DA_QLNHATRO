@@ -40,12 +40,33 @@ public class frm_UserAccount extends javax.swing.JFrame {
     
    UserAccServices UserServices = new UserAccServices(); // Gọi Services NV đặt tên = NVServices
    
-    
-    ArrayList<UserAcc> DSUser = new ArrayList<UserAcc>(); // Tạo mảng NV đặt tên = DSNV
+   ArrayList<UserAcc> DSUser = new ArrayList<UserAcc>(); // Tạo mảng NV đặt tên = DSNV
 
-   
    UserAcc selectedUser = null;// Khai báo lựa chọn NV là rong
+   
    private int MaNV = 0;// Khai báo Mã NV là 0
+   
+   //Lưu Role đăng nhập
+    int saveRole =0;
+    //Lưu tên đăng nhập
+    String saveName;
+    
+    /**
+     * Phương thức lấy role ở form chính
+     * @param stt 
+     */
+    void getRole(int role){
+        saveRole = role;
+    }
+    
+    /**
+     * Phương thức lấy tên ở form chính
+     * @param str 
+     */
+    void getNames(String str){
+        saveName = str;
+    }
+    
     public frm_UserAccount() {
         initComponents();
         this.setTitle("HỆ THỐNG QUẢN LÝ NHÀ TRỌ/QUẢN LÝ USER");
@@ -220,9 +241,19 @@ public class frm_UserAccount extends javax.swing.JFrame {
         jLabel18.setText("Số Điện Thoại");
 
         txt_Phone.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txt_Phone.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_PhoneFocusLost(evt);
+            }
+        });
         txt_Phone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_PhoneActionPerformed(evt);
+            }
+        });
+        txt_Phone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_PhoneKeyPressed(evt);
             }
         });
 
@@ -389,7 +420,13 @@ public class frm_UserAccount extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-public static boolean valEmail(String input)
+/**
+ * Phương thức kiểm tra định dạng email
+ * 
+ * @param input - Email
+ * @return 
+ */
+    public static boolean valEmail(String input)
 {
     String emailRegex ="^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
     Pattern emailat = Pattern.compile(emailRegex,Pattern.CASE_INSENSITIVE);
@@ -397,7 +434,7 @@ public static boolean valEmail(String input)
     return matcher.find();
 }
     private void btn_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addActionPerformed
-    
+       // Khai báo biết và get các giá trị
        String Password = txt_Password.getText();
        String TenNV = txt_TenNV.getText();
        int SDT = Integer.valueOf(txt_Phone.getText());
@@ -405,38 +442,39 @@ public static boolean valEmail(String input)
        String DiaChi = txt_DiaChi.getText();
        Date NgaySinh = J_NgaySinh.getDate();
        int Role;
-      
-
-       
-       
+       // Nếu role = 1 thì là toàn quyền, role = 0 thì là User 
        if(chk_role.isSelected() == true)
        {
            Role = 1;
        }
        else
            Role = 0;
-     if(txt_Password.getText().equals("") ){
-           JOptionPane.showMessageDialog(null, "Ban can phai nhap MK");
-       }
-     else if(valEmail(Email)==false){
-         JOptionPane.showMessageDialog(null, "Mời bạn nhập lại email");
-     }
-     
-     
-     
-     else 
-        { 
-         //call function
-        int rowEffected = UserServices.AddNewRecord(Password,Role,TenNV,SDT,Email,DiaChi,NgaySinh);
-         if(rowEffected > 0){
-           //  showUserAccounts();
-             JOptionPane.showMessageDialog(null, "Tao moi thanh cong!");
-             showDataList();
-         }            
-         else
-             JOptionPane.showMessageDialog(null, "Tạo mới thất bại");
+        if(NgaySinh==null)
+        {
+            JOptionPane.showMessageDialog(null, "Ban cần phải chọn ngày sinh");
         }
-      
+        else if(txt_Password.getText().equals("") )
+        {
+            JOptionPane.showMessageDialog(null, "Ban can phai nhap MK");
+        }
+        else if(valEmail(Email)==false)
+        {
+               JOptionPane.showMessageDialog(null, "Mời bạn nhập lại email");
+        }
+        else 
+        { 
+           
+            int rowEffected = UserServices.AddNewRecord(Password,Role,TenNV,SDT,Email,DiaChi,NgaySinh);
+            if(rowEffected > 0)
+            {
+              
+                JOptionPane.showMessageDialog(null, "Tao moi thanh cong!");
+                showDataList();
+            }            
+            else
+                JOptionPane.showMessageDialog(null, "Tạo mới thất bại");
+        }
+         reload();
  
     
     }//GEN-LAST:event_btn_addActionPerformed
@@ -474,6 +512,7 @@ public static boolean valEmail(String input)
          else
              JOptionPane.showMessageDialog(null, "Cap nhat thất bại");
         }
+     reload();
     }//GEN-LAST:event_btn_updateActionPerformed
 
     private void btn_delActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_delActionPerformed
@@ -500,28 +539,43 @@ public static boolean valEmail(String input)
     }   
       else
               JOptionPane.showMessageDialog(null, "Bạn cần phải chọn User để xóa"); 
-      txt_MaNV.setText("");
-      txt_Password.setText("");
+      reload();
     }//GEN-LAST:event_btn_delActionPerformed
 
     private void txt_PhoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_PhoneActionPerformed
-        // TODO add your handling code here:
+   
     }//GEN-LAST:event_txt_PhoneActionPerformed
-
-    private void btn_reloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reloadActionPerformed
+    /**
+     * Phương thức để clear text
+     */
+    public void reload()
+    {
        txt_MaNV.setText("");
        txt_Email.setText("");
        txt_DiaChi.setText("");
        txt_Password.setText("");
        txt_Phone.setText("");
        txt_TenNV.setText("");
+    }
+    private void btn_reloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reloadActionPerformed
+     reload();
        
     }//GEN-LAST:event_btn_reloadActionPerformed
 
     private void btn_homeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_homeActionPerformed
-       frm_Index home = new frm_Index();
-               home.setVisible(true);
+       frm_Index Home = new frm_Index();
+               Home.setVisible(true);
                this.dispose();
+            
+            if(saveRole==1)
+            {
+                Home.setRoleName("Admin");  
+            }
+            else
+            {
+                Home.setRoleName("User");     
+            }
+            Home.setTenUser(saveName);
     }//GEN-LAST:event_btn_homeActionPerformed
 
     private void btn_xuatNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xuatNVActionPerformed
@@ -558,21 +612,37 @@ public static boolean valEmail(String input)
         }
     }//GEN-LAST:event_btn_xuatNVActionPerformed
 
+    private void txt_PhoneFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_PhoneFocusLost
+        try{    
+        Integer.parseInt(txt_Phone.getText());
+        
+    } catch (NumberFormatException e) {
+  
+        JOptionPane.showMessageDialog(null, "Vui lòng chỉ nhập số");
+        txt_Phone.setText("");
+    }
+    }//GEN-LAST:event_txt_PhoneFocusLost
+
+    private void txt_PhoneKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_PhoneKeyPressed
+      
+    }//GEN-LAST:event_txt_PhoneKeyPressed
+
     /**
-     * Dùng để show data ra gridview
+     * Phương thức dùng để truyền data ra table
      */
      private void showDataList(){
-        
+        // Khởi tạo model default
         DefaultTableModel model = (DefaultTableModel)this.tab_grid.getModel(); 
+        // Xóa các hàng
         model.setRowCount(0);
                 
-        //load data
+        //Khởi tạo list truyền vào các giá trị của User
         ArrayList<UserAcc> list = UserServices.getAllRecords();
-        
+        // Truyền list cho DSUser dùng cho việc tìm kiếm User
         DSUser = list;
-               
+        // Khai báo mảng
         Object[] row = new Object[8];
-        
+        //Duyệt từ đầu tới cuối list lấy ra các thông tin truyền vào mảng vào lưu mảng vào model
         for(int i = 0; i < list.size(); i++){            
             row[0] = list.get(i).getMaNV();
             row[1] = list.get(i).getPassword();
@@ -581,12 +651,13 @@ public static boolean valEmail(String input)
             row[4] = list.get(i).getSDT();
             row[5] = list.get(i).getEMAIL();
             row[6] = list.get(i).getDIACHI();
-            row[7] = list.get(i).getNgaySinh();
-       
+            row[7] = list.get(i).getNgaySinh();       
             model.addRow(row);
         }
-        
+        // Khởi taọ phương thức chọn
         ListSelectionModel cellSelectionModel = tab_grid.getSelectionModel();
+        
+        // Kiểu chọn = đơn
         cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         //Dang ky event click tren danh sach        
         cellSelectionModel.addListSelectionListener(new ListSelectionListener() {
@@ -596,20 +667,28 @@ public static boolean valEmail(String input)
             }
           });
     }
-      public void gridSelectedChanged(ListSelectionEvent e) {
+     
+     /**
+      * Phương thức sự kiện khi nhấp vào mục trong table
+      * @param e 
+      */
+     public void gridSelectedChanged(ListSelectionEvent e) {
+     
      String selectedData = null;
      int selectedID = 0; 
        
-       int[] selectedRows = tab_grid.getSelectedRows();
-       int[] selectedColumns = tab_grid.getSelectedColumns();
-        
-       int selectedRow = tab_grid.getSelectedRow();
-       int selectedColumn = tab_grid.getSelectedColumn();
-       
+//     int[] selectedRows = tab_grid.getSelectedRows();
+//     int[] selectedColumns = tab_grid.getSelectedColumns();
+     // Chọn hàng trong table   
+     int selectedRow = tab_grid.getSelectedRow();
+     //Chọn cột trong table
+     int selectedColumn = tab_grid.getSelectedColumn();
+     // Nếu hàng và cột lớn hơn 0 
        if(selectedRow >=0 && selectedColumn >=0){
-           selectedData = String.valueOf(tab_grid.getValueAt(selectedRow, selectedColumn));
+           
+          //Gán selectedID bằng với hàng được chọn và cột đầu tiên 
            selectedID = (int) tab_grid.getValueAt(selectedRow, 0);
-        //   selectedUser= findNV(selectedID,DSUser);
+      
            MaNV = selectedID;
            System.out.println("Selected: " + selectedData + " , value: " + selectedID);
                if(selectedID != 0){
@@ -625,34 +704,36 @@ public static boolean valEmail(String input)
                }       
        }
     }
-       private void showDataDetail(int MaNV,String Password, int Role,String TENNV,int SDT,String EMAIL, String DIACHI,Date NgaySinh){
+      /**
+       * Phương thức dùng để set các giá trị từ table lên text,combobox
+       * @param MaNV
+       * @param Password
+       * @param Role
+       * @param TENNV
+       * @param SDT
+       * @param EMAIL
+       * @param DIACHI
+       * @param NgaySinh 
+       */
+       private void showDataDetail(int MaNV,String Password, int Role,String TENNV,int SDT,String EMAIL, String DIACHI,Date NgaySinh)
+        {
      
-        txt_MaNV.setText(""+ MaNV);        
-        txt_Password.setText(Password);
-        txt_TenNV.setText(TENNV);
-        txt_Phone.setText(String.valueOf(SDT));
-        txt_Email.setText(EMAIL);
-        txt_DiaChi.setText(DIACHI);
-        J_NgaySinh.setDate(NgaySinh);
-        if(Role == 1)
-            {
-              chk_role.setSelected(true);
-            }
-            else
-               chk_role.setSelected(false);
-        
-  
-    }
+            txt_MaNV.setText(""+ MaNV);        
+            txt_Password.setText(Password);
+            txt_TenNV.setText(TENNV);
+            txt_Phone.setText(String.valueOf(SDT));
+            txt_Email.setText(EMAIL);
+            txt_DiaChi.setText(DIACHI);
+            J_NgaySinh.setDate(NgaySinh);
+            if(Role == 1)
+                {
+                  chk_role.setSelected(true);
+                }
+                else
+                   chk_role.setSelected(false);
+        }
     
-//       public UserAcc findNV(int MaNV, ArrayList<UserAcc> DSUser) {
-//      for (UserAcc item : DSUser) {
-//          if (item.getMaNV()== this.MaNV) {
-//              return item;
-//          }
-//      }
-//      return null;
-//    }
-    
+
     /**
      * @param args the command line arguments
      */

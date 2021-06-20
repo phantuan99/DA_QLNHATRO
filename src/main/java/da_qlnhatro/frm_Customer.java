@@ -36,6 +36,27 @@ public class frm_Customer extends javax.swing.JFrame {
     /**
      * Creates new form frm_Customer
      */
+    
+    //Lưu Role đăng nhập
+    int saveRole =0;
+    //Lưu tên đăng nhập
+    String saveName;
+    
+    /**
+     * Phương thức lấy role ở form chính
+     * @param stt 
+     */
+    void getRole(int role){
+        saveRole = role;
+    }
+    /**
+     * Phương thức lấy tên ở form chính
+     * @param str 
+     */
+    void getNames(String str){
+        saveName = str;
+    }
+    
     public frm_Customer() {
         initComponents();
         //load danh sách từ cơ sở dữ liệu lên bảng
@@ -165,11 +186,11 @@ public class frm_Customer extends javax.swing.JFrame {
                 .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btn_home)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_xuatNV, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(1, 1, 1)
+                .addComponent(btn_xuatNV, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnXoa, btn_home});
@@ -308,7 +329,7 @@ public class frm_Customer extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -422,6 +443,15 @@ public class frm_Customer extends javax.swing.JFrame {
         this.dispose();
         frm_Index Home = new frm_Index();
         Home.setVisible(true);
+        if(saveRole==1)
+        {
+            Home.setRoleName("Admin");  
+        }
+        else
+        {
+            Home.setRoleName("User");     
+        }
+        Home.setTenUser(saveName);
     }//GEN-LAST:event_btn_homeActionPerformed
 
     private void btn_xuatNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xuatNVActionPerformed

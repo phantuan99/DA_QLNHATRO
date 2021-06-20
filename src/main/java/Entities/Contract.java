@@ -12,11 +12,11 @@ import java.util.Date;
  * @author PhanTuan
  */
 public class Contract {
-    private int SOHD,MAKH,O;
+    private int SOHD,MAKH,O,MAPHONGTRO,MAKV;
     private String TENHD,TU;
     private Date NGAYLAP,NGAYKETTHUC;
 
-    public Contract(int SOHD, String TENHD,  int MAKH, Date NGAYLAP, Date NGAYKETTHUC, String TU, int O) {
+    public Contract(int SOHD, String TENHD,  int MAKH, int MAKV,int MAPHONGTRO, Date NGAYLAP, Date NGAYKETTHUC, String TU, int O) {
         this.SOHD = SOHD;
         this.MAKH = MAKH;
         this.O = O;
@@ -24,8 +24,31 @@ public class Contract {
         this.TU = TU;
         this.NGAYLAP = NGAYLAP;
         this.NGAYKETTHUC = NGAYKETTHUC;
+        this.MAPHONGTRO = MAPHONGTRO;
+        this.MAKV = MAKV;
     }
 
+    public int getMAPHONGTRO() {
+        return MAPHONGTRO;
+    }
+
+    public void setMAPHONGTRO(int MAPHONGTRO) {
+        this.MAPHONGTRO = MAPHONGTRO;
+    }
+
+    public int getMAKV() {
+        return MAKV;
+    }
+
+    public void setMAKV(int MAKV) {
+        this.MAKV = MAKV;
+    }
+
+   
+
+    
+    
+    
     public int getSOHD() {
         return SOHD;
     }

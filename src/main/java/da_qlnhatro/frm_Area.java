@@ -31,6 +31,11 @@ public class frm_Area extends javax.swing.JFrame {
     
     Area selectedKV = null;
     
+    //Lưu Role đăng nhập
+    int saveRole =0;
+    //Lưu tên đăng nhập
+    String saveName;
+    
      private int MaKV = 0;
     /**
      * Creates new form frm_Area
@@ -43,6 +48,21 @@ public class frm_Area extends javax.swing.JFrame {
         this.setTitle("HỆ THỐNG QUẢN LÝ NHÀ TRỌ/QUẢN LÝ KHU VỰC");
     }
 
+    /**
+     * Phương thức lấy role ở form chính
+     * @param stt 
+     */
+    void getRole(int role){
+        saveRole = role;
+    }
+    /**
+     * Phương thức lấy tên ở form chính
+     * @param str 
+     */
+    void getNames(String str){
+        saveName = str;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -317,36 +337,72 @@ public class frm_Area extends javax.swing.JFrame {
             }
         } );
     }
+    
+     
+      // Các phương thức tìm kiếm 
+      
+      /**
+       * Phương thức tìm một User với mã NV và danh sách User
+       * @param MaNV - Mã nhân viên
+       * @param User - Danh sách User
+       * @return 
+       */
+       public UserAcc findUser(int MaNV, ArrayList<UserAcc> User) {
+           // Duyệt qua từng đối tượng trong danh sách User
+        for (UserAcc item : User) {
+            //Tìm kiếm mã nhân viên
+              if (item.getMaNV() == MaNV) {
+                  return item;
+              }
+          }
+          return null;
+      }
+       /**
+        * Phương thức tìm một KV với mã Khu vực và danh sách khu vực
+        * @param MaKV - Mã khu vực
+        * @param DSKV - Danh sách khu vực
+        * @return 
+        */
+        public Area findKV(int MaKV, ArrayList<Area> DSKV) {
+        // Duyệt qua từng đối tượng trong danh sách khu vực
+        for (Area item : DSKV) {
+            // Tìm kiếm mã khu vực
+              if (item.getMAKV()== MaKV) {
+                  return item;
+              }
+          }
+          return null;
+      }
+    
+    
     /**
-     * Hàm để show danh sách data ở table(grid view)
+     * Phương thức để show danh sách data ở table(grid view)
      */
      private void showDataList(){
         // khai báo model default
         DefaultTableModel model = (DefaultTableModel)this.tab_grid.getModel(); 
+        // xóa tất cả hàng trong table
         model.setRowCount(0);
                 
-        //khởi tạo list 
+        //Tạo list chứa các thông tin của khu vực 
         ArrayList<Area> list = KVServices.getAllRecords();
-        
-        DSKV = list; //Dùng khi tìm KV
-        
-        // Khởi tạo mảng
+        //gán list cho danh sách khu vực
+        DSKV = list; 
+        //khai báo mảng đối tượng
         Object[] row = new Object[6];
-        // đưa dữ liệu tĩnh vào trong table 
+        //vòng lặp chạy từ đầu đến hết list lấy ra các giá trị truyền vào mảng và lưu vào model
         for(int i = 0; i < list.size(); i++){            
             row[0] = list.get(i).getMAKV();
             row[1] = list.get(i).getTENKV();
             row[2] = list.get(i).getMANV();
-            row[3] = list.get(i).getDIACHIKV();
-       
-                     
+            row[3] = list.get(i).getDIACHIKV();               
             model.addRow(row);
         }
-        //Lớp interface thể hiện vùng chọn tĩnh
+        //khai báo phương thức chọn trên bảng
         ListSelectionModel cellSelectionModel = tab_grid.getSelectionModel();
         //Chế độ chọn đơn
         cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        //Dang ky event click tren danh sach        
+        //Dang ky event click tren list       
         cellSelectionModel.addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {
                 //goi đến sự kiện thay đổi chọn
@@ -355,36 +411,50 @@ public class frm_Area extends javax.swing.JFrame {
           });
     }
      /**
-      * Sử dụng để thể hiện thay đổi khi click vào đối tượng table
+      * Sự kiện thay đổi khi click vào đối tượng đơn table
       */
       public void gridSelectedChanged(ListSelectionEvent e) {
        // Khai báo biến
        String selectedData = null; 
        int selectedID = 0; 
        
-       int[] selectedRows = tab_grid.getSelectedRows();
-       int[] selectedColumns = tab_grid.getSelectedColumns();
+//       int[] selectedRows = tab_grid.getSelectedRows();
+//       int[] selectedColumns = tab_grid.getSelectedColumns();
         
+       //Chọn dòng trong bảng
        int selectedRow = tab_grid.getSelectedRow();
+       //Chọn cột trong bảng
        int selectedColumn = tab_grid.getSelectedColumn();
        
+       //nếu số dòng được chọn lớn hơn hoặc bằng 0 và nếu số cột được chọn lớn hơn hoặc bằng 0
        if(selectedRow >=0 && selectedColumn >=0){
-           selectedData = String.valueOf(tab_grid.getValueAt(selectedRow, selectedColumn));
-           selectedID = (int) tab_grid.getValueAt(selectedRow, 0); // phần tử số 0 sẽ là ID
            
-           selectedKV= findKV(selectedID,DSKV); 
-           System.out.println("Selected: " + selectedData + " , value: " + selectedID);
-               if(selectedID != 0){
-               showDataDetail(selectedID,
-                       (String) tab_grid.getValueAt(selectedRow, 1),
-                       (int) tab_grid.getValueAt(selectedRow, 2),
-                       (String) tab_grid.getValueAt(selectedRow, 3));
-                      
+       //    selectedData = String.valueOf(tab_grid.getValueAt(selectedRow, selectedColumn));
+       //Gán selectedID bằng hàng được chọn và cột đầu tiên 
+        selectedID = (int) tab_grid.getValueAt(selectedRow, 0); // phần tử số 0 sẽ là ID
+        //Gán biến selectedKV bằng đối tượng khu vực được chọn 
+        selectedKV= findKV(selectedID,DSKV); 
+        System.out.println("Selected: " + selectedData + " , value: " + selectedID);
+            //Nếu đối tượng chọn phát sinh thay đổi
+            if(selectedID != 0){
+            //Gọi đến showDataDetail để set các giá trị text và combobox
+            showDataDetail(selectedID,
+                    (String) tab_grid.getValueAt(selectedRow, 1),
+                    (int) tab_grid.getValueAt(selectedRow, 2),
+                    (String) tab_grid.getValueAt(selectedRow, 3));                    
                }       
        }
       }
+      /**
+       * Phương thứ dùng để set các giá trị text vào combobox của form
+       * Truyền vào tham số
+       * @param MaKV - Mã khu vực
+       * @param TenKV - Tên khu vực
+       * @param MaNV - Mã nhân viên
+       * @param DiaChi  - Địa chỉ
+       */
       private void showDataDetail(int MaKV,String TenKV,int MaNV, String DiaChi){
-     
+          
         txt_MaKV.setText(""+ MaKV);        
         txt_TenKV.setText(TenKV);
           if( selectedKV != null)
@@ -392,24 +462,7 @@ public class frm_Area extends javax.swing.JFrame {
               cbb_MaNV.setSelectedItem(findUser(selectedKV.getMANV(), DSUSER));
           }
       }
-      
-       public UserAcc findUser(int MaNV, ArrayList<UserAcc> User) {
-        for (UserAcc item : User) {
-              if (item.getMaNV() == MaNV) {
-                  return item;
-              }
-          }
-          return null;
-      }
-       
-        public Area findKV(int MaKV, ArrayList<Area> DSKV) {
-        for (Area item : DSKV) {
-              if (item.getMAKV()== MaKV) {
-                  return item;
-              }
-          }
-          return null;
-      }
+     
     
     
  
@@ -436,9 +489,7 @@ public class frm_Area extends javax.swing.JFrame {
             else
                 JOptionPane.showMessageDialog(null, "Tạo mới thất bại");
         }
-       txt_MaKV.setText("");
-       txt_TenKV.setText("");
-       txt_DiaChi.setText("");
+      clear();
     }//GEN-LAST:event_btn_addActionPerformed
 
     private void btn_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_updateActionPerformed
@@ -466,9 +517,7 @@ public class frm_Area extends javax.swing.JFrame {
             else
                 JOptionPane.showMessageDialog(null, "Cap nhat thất bại");
         }
-       txt_MaKV.setText("");
-       txt_TenKV.setText("");
-       txt_DiaChi.setText("");
+       clear();
     }//GEN-LAST:event_btn_updateActionPerformed
 
     private void btn_delActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_delActionPerformed
@@ -497,12 +546,16 @@ public class frm_Area extends javax.swing.JFrame {
       else
               JOptionPane.showMessageDialog(null, "Ban can phai chon khu vuc de xoa"); 
  
+        clear();
     }//GEN-LAST:event_btn_delActionPerformed
-
-    private void btn_refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_refreshActionPerformed
+void clear()
+{
         txt_MaKV.setText("");
         txt_DiaChi.setText("");
         txt_TenKV.setText("");
+}
+    private void btn_refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_refreshActionPerformed
+       clear();
     }//GEN-LAST:event_btn_refreshActionPerformed
 
     private void txt_TenKVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_TenKVActionPerformed
@@ -516,6 +569,15 @@ public class frm_Area extends javax.swing.JFrame {
        this.dispose();
        frm_Index Home = new frm_Index();
        Home.setVisible(true);
+       if(saveRole==1)
+       {
+           Home.setRoleName("Admin");  
+       }
+       else
+       {
+           Home.setRoleName("User");     
+       }
+       Home.setTenUser(saveName);
     }//GEN-LAST:event_btn_homeActionPerformed
     
     

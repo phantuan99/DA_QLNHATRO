@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
 public class DienNuocServices {
        /**
      * 
-     * Dùng để select dữ liệu từ database
+     * Dùng để truy vấn tất cả dữ liệu của điện nước
      */
     public ArrayList<DienNuoc> getAllRecords()
     {

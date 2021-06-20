@@ -113,7 +113,7 @@ public class UserAccServices
                      ", TENNV =N'" + TENNV +"'" +
                     ", SDT  = '" + SDT +"'" +
                     ", EMAIL  = '" + EMAIL +"'" +
-                    ", DIACHI  = '" + DIACHI +"'" +
+                    ", DIACHI  = N'" + DIACHI +"'" +
                     ", NGAYSINH  = '" + strNS +"'" +
                     " WHERE MANV = '" + MaNV +"'";
                     

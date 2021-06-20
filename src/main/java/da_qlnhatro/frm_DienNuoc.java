@@ -33,7 +33,25 @@ public class frm_DienNuoc extends javax.swing.JFrame {
     ArrayList<Area> DSKV = new ArrayList<Area>();
     DienNuoc selectedDN = null;
     
+    //Lưu Role đăng nhập
+    int saveRole =0;
+    //Lưu tên đăng nhập
+    String saveName;
     
+    /**
+     * Phương thức lấy role ở form chính
+     * @param stt 
+     */
+    void getRole(int role){
+        saveRole = role;
+    }
+    /**
+     * Phương thức lấy tên ở form chính
+     * @param str 
+     */
+    void getNames(String str){
+        saveName = str;
+    }
     
     public frm_DienNuoc() {
         initComponents();
@@ -218,6 +236,11 @@ public class frm_DienNuoc extends javax.swing.JFrame {
 
         btn_refresh.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btn_refresh.setText("Làm mới");
+        btn_refresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_refreshActionPerformed(evt);
+            }
+        });
 
         btn_update.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btn_update.setText("Sửa");
@@ -416,6 +439,7 @@ public class frm_DienNuoc extends javax.swing.JFrame {
          else
              JOptionPane.showMessageDialog(null, "Tạo mới thất bại");
         }
+         clear();
     }//GEN-LAST:event_btn_addActionPerformed
 
     private void btn_delActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_delActionPerformed
@@ -440,6 +464,7 @@ public class frm_DienNuoc extends javax.swing.JFrame {
         else{
             JOptionPane.showMessageDialog(null, "Xin chọn thông tin phiếu điện nước cần xóa!!");
         }
+         clear();
     }//GEN-LAST:event_btn_delActionPerformed
 
     private void btn_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_updateActionPerformed
@@ -465,13 +490,32 @@ public class frm_DienNuoc extends javax.swing.JFrame {
          else
              JOptionPane.showMessageDialog(null, "Cập nhật thất bại");
         }
+         clear();
     }//GEN-LAST:event_btn_updateActionPerformed
 
     private void btn_homeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_homeActionPerformed
        this.dispose();
         frm_Index Home = new frm_Index();
         Home.setVisible(true);
+       if(saveRole==1)
+       {
+           Home.setRoleName("Admin");  
+       }
+       else
+       {
+           Home.setRoleName("User");     
+       }
+       Home.setTenUser(saveName);
     }//GEN-LAST:event_btn_homeActionPerformed
+void clear()
+{
+        txt_ID.setText("");
+        txt_GiaDien.setText("");
+        txt_GiaNuoc.setText("");
+}
+    private void btn_refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_refreshActionPerformed
+       clear();
+    }//GEN-LAST:event_btn_refreshActionPerformed
 
     /**
      * @param args the command line arguments

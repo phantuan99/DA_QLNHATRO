@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
 public class BillServices {
      /**
      * 
-     * Dùng để select dữ liệu từ database
+     * Dùng để truy vấn tất cả dữ liệu của hóa đơn
      */
     public ArrayList<Bill> getAllRecords()
     {
@@ -34,7 +34,7 @@ public class BillServices {
             ResultSet rs = acc.Query("SELECT * FROM [HOADON]");
             while(rs.next())
             {
-                Bill B = new Bill(rs.getInt("MAHD"), rs.getInt("MAKV"), rs.getInt("MAPHONG"), rs.getInt("SOKWDIEN"),rs.getInt("SOKWNUOC"),rs.getInt("TIENDIEN"),rs.getInt("TIENNUOC"),rs.getInt("THANG"),rs.getInt("NAM")   );
+                Bill B = new Bill(rs.getInt("MAHD"), rs.getInt("MAKV"), rs.getInt("MAPHONG"), rs.getInt("SOKWDIEN"),rs.getInt("SOKWNUOC"),rs.getInt("TIENDIEN"),rs.getInt("TIENNUOC"),rs.getInt("THANG"),rs.getInt("NAM"),rs.getInt("TONGTIEN"));
                 list.add(B);
             }            
         }
@@ -44,15 +44,27 @@ public class BillServices {
         }
         return list;
     }
-    
-      public int AddNewRecord(int MAKV,int MAPHONG,int SOKWDIEN,int SOKWNUOC,int TIENDIEN,int TIENNUOC,int THANG,int NAM){
+    /**
+     * Truyền vào các tham số để thêm mới dữ liệu
+     * @param MAKV - Mã Khu Vực
+     * @param MAPHONG - Mã Phòng
+     * @param SOKWDIEN - Số KW Điện
+     * @param SOKWNUOC - Số khối nước
+     * @param TIENDIEN - Tiền điện
+     * @param TIENNUOC - Tiền nước
+     * @param THANG - Tháng
+     * @param NAM - Năm
+     * @param TONGTIEN - Tổng tiền
+     * @return 
+     */
+      public int AddNewRecord(int MAKV,int MAPHONG,int SOKWDIEN,int SOKWNUOC,int TIENDIEN,int TIENNUOC,int THANG,int NAM,int TONGTIEN){
         int rowCount = 0;
         try{
             //Định dạng ngay sinh
         
             SqlDataAccess acc = new SqlDataAccess();
             
-                String sql = "INSERT INTO HOADON(MAKV,MAPHONG,SOKWDIEN,SOKWNUOC,TIENDIEN,TIENNUOC,THANG,NAM) VALUES("
+                String sql = "INSERT INTO HOADON(MAKV,MAPHONG,SOKWDIEN,SOKWNUOC,TIENDIEN,TIENNUOC,THANG,NAM,TONGTIEN) VALUES("
                         +"'"+ MAKV
                         +"','"+ MAPHONG
                         +"','"+SOKWDIEN
@@ -61,6 +73,7 @@ public class BillServices {
                         +"','"+TIENNUOC
                         +"','"+THANG
                         +"','"+NAM
+                        +"','"+TONGTIEN
                         +"')";   
             
    
@@ -74,8 +87,21 @@ public class BillServices {
         return rowCount;
     }
       
-      
-      public int UpdateRecord(int MAHOADON,int MAKV,int MAPHONG,int SOKWDIEN,int SOKWNUOC,int TIENDIEN,int TIENNUOC,int THANG,int NAM){
+      /**
+       * Truyền vào tham số để cập nhật dữ liệu
+       * @param MAHOADON -  Mã Hóa Đơn(Điều kiện)
+       * @param MAKV - Mã Khu Vực
+       * @param MAPHONG - Mã Phòng
+       * @param SOKWDIEN - Số KW Điện
+       * @param SOKWNUOC - Số khối nước
+       * @param TIENDIEN - Tiền điện
+       * @param TIENNUOC - Tiền nước
+       * @param THANG - Tháng
+       * @param NAM - Năm
+       * @param TONGTIEN - Tổng tiền
+       * @return 
+       */
+      public int UpdateRecord(int MAHOADON,int MAKV,int MAPHONG,int SOKWDIEN,int SOKWNUOC,int TIENDIEN,int TIENNUOC,int THANG,int NAM, int TONGTIEN){
         int rowCount = 0;
         try{
                
@@ -90,6 +116,7 @@ public class BillServices {
                     +"', TIENNUOC = '"+TIENNUOC
                     +"', THANG = '"+THANG
                     +"', NAM = '"+NAM
+                    +"', TONGTIEN = '"+TONGTIEN
                     +"' WHERE MAHD = "+MAHOADON;
             
             System.out.println(sql);
@@ -100,6 +127,11 @@ public class BillServices {
         }
         return rowCount;
     }
+      /**
+       * Truyền vào tham số để xóa
+       * @param MAHOADON - Mã hóa đơn
+       * @return 
+       */
        public int DeleteRecord(int MAHOADON){
         int rowCount = 0;
         try{

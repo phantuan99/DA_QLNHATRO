@@ -133,15 +133,12 @@ public class frm_Login extends javax.swing.JFrame {
                 if(rs.next()){
                     JOptionPane.showMessageDialog(null, "Đăng nhập thành công");
                     
-         
-                 
-                    
-                         
+
                     frm_Index Index = new frm_Index();  
                     
                      String sql2 = "select * from UserAccount where MANV='" + username +"' and password='" + pass +"'and Role = 1";
                       SqlDataAccess acc2 = new SqlDataAccess();
-                      acc2.Query(sql2);
+                      acc2.Query(sql2);                   
                       ResultSet rs2 = acc.Query(sql2);
                       if(rs2.next())
                       {
@@ -151,7 +148,7 @@ public class frm_Login extends javax.swing.JFrame {
                       }
                       else
                       {
-                           Index.setRoleName("User");
+                         Index.setRoleName("User");
                       }
                         Index.setTenUser(txt_Username.getText());
                         Index.pack();

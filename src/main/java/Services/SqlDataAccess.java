@@ -24,7 +24,7 @@ public class SqlDataAccess {
    
     // Khởi tạo đối tượng statement 
     private Connection conn; 
-    private Statement stmt;
+    private Statement stmt; // lấy hàng(dùng với truy vấn không điều kiện)
  
     public SqlDataAccess(){
         try{

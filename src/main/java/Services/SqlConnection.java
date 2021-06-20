@@ -37,7 +37,7 @@ public class SqlConnection {
             return null;
         }
     }
-	// Kiểm tra kết nối
+	// Kiểm tra thông tin kết nối
         public void testConnection() throws ClassNotFoundException{
         Connection conn = null;
         try {       

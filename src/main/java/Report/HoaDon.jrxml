@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="HoaDon" pageWidth="970" pageHeight="842" columnWidth="930" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d35d0ebf-7ff3-49b3-a6d8-e0a4149193af">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.xml"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<queryString>
+		<![CDATA[select *
+from HOADON]]>
+	</queryString>
+	<field name="MAHD" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="MAHD"/>
+		<property name="com.jaspersoft.studio.field.label" value="MAHD"/>
+	</field>
+	<field name="MAKV" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="MAKV"/>
+		<property name="com.jaspersoft.studio.field.label" value="MAKV"/>
+	</field>
+	<field name="MAPHONG" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="MAPHONG"/>
+		<property name="com.jaspersoft.studio.field.label" value="MAPHONG"/>
+	</field>
+	<field name="SOKWDIEN" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="SOKWDIEN"/>
+		<property name="com.jaspersoft.studio.field.label" value="SOKWDIEN"/>
+	</field>
+	<field name="SOKWNUOC" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="SOKWNUOC"/>
+		<property name="com.jaspersoft.studio.field.label" value="SOKWNUOC"/>
+	</field>
+	<field name="TIENDIEN" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="TIENDIEN"/>
+		<property name="com.jaspersoft.studio.field.label" value="TIENDIEN"/>
+	</field>
+	<field name="TIENNUOC" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="TIENNUOC"/>
+		<property name="com.jaspersoft.studio.field.label" value="TIENNUOC"/>
+	</field>
+	<field name="THANG" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="THANG"/>
+		<property name="com.jaspersoft.studio.field.label" value="THANG"/>
+	</field>
+	<field name="NAM" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="NAM"/>
+		<property name="com.jaspersoft.studio.field.label" value="NAM"/>
+	</field>
+	<field name="TONGTIEN" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="TONGTIEN"/>
+		<property name="com.jaspersoft.studio.field.label" value="TONGTIEN"/>
+	</field>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="970" height="92" backcolor="#006699" uuid="a254f6d7-3b22-4fe9-8559-c87c46db0561"/>
+				<staticText>
+					<reportElement x="400" y="30" width="234" height="43" forecolor="#FFFFFF" uuid="2a9aa9e8-7622-4004-b565-6f0e1d6ee8fb"/>
+					<textElement>
+						<font size="34" isBold="true"/>
+					</textElement>
+					<text><![CDATA[HÓA ĐƠN	]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="410" y="70" width="180" height="20" forecolor="#FFFFFF" uuid="cfe1d150-d9cf-4190-aa4e-069bcb2bb90d"/>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="25">
+			<line>
+				<reportElement x="-20" y="20" width="970" height="2" forecolor="#666666" uuid="fb8ab30c-078c-4cce-aba1-e1df0ae29af1"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="232" y="0" width="110" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="2895c8da-5edd-4062-bc38-0fa445455d5b"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mã Phòng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="-10" y="0" width="110" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="067d67b3-e63b-4918-9941-1e7c57135a06"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mã Hóa Đơn]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="350" y="0" width="110" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="7f82d63e-487c-4a18-934c-cf2220ca79bd"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Số KW Điện]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="110" y="0" width="110" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="ad362303-3f10-466c-9760-d6582c18644f"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mã Khu Vực]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="590" y="0" width="110" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="7900edde-2174-459e-ba5f-6534a6278210"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tiền Điện]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="470" y="0" width="110" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="adc50da4-3c64-4100-b1b9-1e81f0dff03d"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Số KW Nước]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="710" y="0" width="110" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="e5f61020-ae21-4aaa-b456-bcb4917c7a01"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tiền Nước]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="830" y="2" width="110" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="95afd8c5-5cce-420f-8f1d-6306d11567d3"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tổng Tiền]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="70">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="20" width="950" height="1" uuid="33d94235-b8b3-4e00-89ba-3b4d826e76f7"/>
+			</line>
+			<textField>
+				<reportElement x="0" y="20" width="100" height="30" uuid="29783bfa-8e15-4287-adc6-d79c57b2b606"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{MAHD}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="232" y="21" width="100" height="30" uuid="aa81c0fe-2561-4e06-b594-a3db42d8f135"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{MAPHONG}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="360" y="21" width="100" height="30" uuid="139890bc-1d86-40ac-abe9-925223262893"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{SOKWDIEN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="20" width="100" height="30" uuid="73074bda-4b5f-47ee-88f8-81ce0c6b79c7"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{SOKWNUOC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="590" y="20" width="100" height="30" uuid="e651ba79-5d20-4816-8514-1d25c7fde9e7"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{TIENDIEN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="20" width="100" height="30" uuid="d62d6ac0-4098-42f2-9947-896f2bf4bb56"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{MAKV}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="720" y="20" width="100" height="30" uuid="d840ae34-9030-4db4-9601-1a5c959b4722"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{TIENNUOC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="835" y="21" width="100" height="30" uuid="1ea80b16-8466-413d-a513-4417cfd5a788"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{TONGTIEN}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="0" width="950" height="13" backcolor="#E6E6E6" uuid="ac55dd8a-ee2d-4a5a-9311-2ef24b7985b1"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="a7e4b35e-d6ae-4e53-9c44-2df572f5a7e0"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" uuid="9cd0bb4c-9094-4fad-8257-c16460e1b07d"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

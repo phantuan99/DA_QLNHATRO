@@ -17,15 +17,12 @@ import javax.swing.JOptionPane;
  * @author PhanTuan
  */
 
-/**
- *  
- * Hàm chứa các phương thức chứa câu truy vấn CRUD vào SQL Server của bảng Hợp đồng
- */
+
 
 public class ContractServices {
      /**
      * 
-     * Dùng để select dữ liệu từ database
+     * Dùng để truy vấn tất cả dữ liệu của hợp đồng
      */
     public ArrayList<Contract> getAllRecords()
     {
@@ -37,7 +34,7 @@ public class ContractServices {
             ResultSet rs = acc.Query("SELECT * FROM [HOPDONG]");
             while(rs.next())
             {
-                Contract HD = new Contract(rs.getInt("SOHD"), rs.getString("TENHD"), rs.getInt("MAKH"), rs.getDate("NGAYLAP"),rs.getDate("NGAYKETTHUC"),rs.getString("TU"),rs.getInt("O"));
+                Contract HD = new Contract(rs.getInt("SOHD"), rs.getString("TENHD"), rs.getInt("MAKH"),rs.getInt("MAKV"),rs.getInt("MAPHONGTRO"), rs.getDate("NGAYLAP"),rs.getDate("NGAYKETTHUC"),rs.getString("TU"),rs.getInt("O"));
                 list.add(HD);
             }            
         }
@@ -47,18 +44,19 @@ public class ContractServices {
         }
         return list;
     }
-    /**
-     * Phương thức dùng để thêm mới vào database
-     * @param SOHD - Số Hợp đồng
-     * @param TENHD - Tên Hợp đồng
-     * @param MAKH - Mã Khách hàng
-     * @param strNgayLap - Ngày lập
-     * @param strNgayKetThuc - Ngày kết thúc
-     * @param TU - Tủ
-     * @param O - Ô
-     * @return 
-     */
-    public int AddNewRecord( String TENHD,  int MAKH, Date NGAYLAP, Date NGAYKETTHUC, String TU, int O){
+  /**
+   * Truyền vào tham số để thêm mới dữ liệu
+   * @param TENHD - Tên hợp đồng
+   * @param MAKH - Mã khách hàng
+   * @param NGAYLAP - Ngày lập
+   * @param NGAYKETTHUC - Ngày kết thúc
+   * @param TU - Tủ
+   * @param O - Ô
+   * @param MAKV - Mã khu vực
+   * @param MAPHONGTRO - Mã phòng trọ
+   * @return 
+   */
+    public int AddNewRecord( String TENHD,  int MAKH,int MAKV, int MAPHONGTRO , Date NGAYLAP, Date NGAYKETTHUC, String TU, int O){
         int rowCount = 0;
         try{
             //Định dạng ngay sinh
@@ -69,13 +67,16 @@ public class ContractServices {
             System.out.println("Date Format with yyyy-MM-dd : "+ NGAYKETTHUC );  
             
             SqlDataAccess acc = new SqlDataAccess();
-            String sql = "INSERT INTO HOPDONG (TENHD, MAKH, NGAYLAP, NGAYKETTHUC,TU,O) VALUES(" 
+            String sql = "INSERT INTO HOPDONG (TENHD, MAKH,MAKV,MAPHONGTRO, NGAYLAP, NGAYKETTHUC,TU,O) VALUES(" 
                     +"N'"+TENHD
                     +"','"+MAKH
+                    +"','"+MAKV
+                    +"','"+MAPHONGTRO
                     +"','"+strNgayLap
                     +"','"+strNgayKetThuc
                     +"','"+TU      
                     +"','"+O
+                   
                     +"')";   
             
             System.out.println(sql);
@@ -87,18 +88,21 @@ public class ContractServices {
         }
         return rowCount;
     }
-    /**
-     * Phương thức dùng để cập nhật dữ liệu
-     * @param SOHD
-     * @param TENHD
-     * @param MAKH
-     * @param NGAYLAP
-     * @param NGAYKETTHUC
-     * @param TU
-     * @param O
-     * @return 
-     */
-     public int UpdateRecord(int SOHD, String TENHD,  int MAKH, Date NGAYLAP, Date NGAYKETTHUC, String TU, int O){
+   /**
+    * Phương thúc cập nhật dữ liệu
+    * Truyền vào tham số để cập nhật dữ liệu
+    * @param SOHD - Số hợp động(Điều kiện)
+    * @param TENHD - Tên hợp đồng
+    * @param MAKH - Mã khách hàng
+    * @param NGAYLAP - Ngày lập
+    * @param NGAYKETTHUC - Ngày kết thúc
+    * @param TU - Tủ
+    * @param O - Ô
+    * @param MAKV - Mã khu vực
+    * @param MAPHONGTRO - Mã phòng trọ
+    * @return 
+    */
+     public int UpdateRecord(int SOHD, String TENHD,  int MAKH,int MAKV, int MAPHONGTRO, Date NGAYLAP, Date NGAYKETTHUC, String TU, int O){
         int rowCount = 0;
         try{
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");  
@@ -114,10 +118,13 @@ public class ContractServices {
              String sql = "UPDATE HOPDONG SET TENHD = "
                     +"N'"+ TENHD
                     +"',MAKH = "+MAKH
+                    +"', MAKV = '"+MAKV
+                    +"', MAPHONGTRO = '"+MAPHONGTRO
                     +",NGAYLAP = '"+strNgayLap
                     +"', NGAYKETTHUC = N'"+strNgayKetThuc
-                    +"', TU = N'"+TU
+                    +"', TU = '"+TU
                     +"', O = N'"+O
+                     
                     +"' WHERE SOHD = "+SOHD;
             
             System.out.println(sql);
@@ -130,7 +137,8 @@ public class ContractServices {
     }
      /**
       * Phương thức dùng để xóa dữ liệu
-      * @param SOHD
+      * Truyền vào tham số để xóa dữ liệu
+      * @param SOHD - Số hóa đơn
       * @return 
       */
       public int DeleteRecord(int SOHD){

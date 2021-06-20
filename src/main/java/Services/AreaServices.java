@@ -23,7 +23,7 @@ public class AreaServices {
   
     /**
      * 
-     * Dùng để select dữ liệu từ database
+     * Dùng để truy vấn tất cả dữ liệu của khu vực
      */
     public ArrayList<Area> getAllRecords()
     {
@@ -74,7 +74,7 @@ public class AreaServices {
         return rowCount;
     }
     /**
-     * Phương thức chứa câu lệnh truy vấn cập nhật dữ liệu vào database
+     * Phương thức chứa câu lệnh cập nhật dữ liệu vào database
      * @param MaKV - Truyền vào mã khu vực(đây là tự động)
      * @param MaNV - Truyền vào nhân viên
      * @param TenKV - Truyền vào tên khu vực
@@ -87,8 +87,8 @@ public class AreaServices {
             SqlDataAccess acc = new SqlDataAccess();
             
             String sql = "UPDATE KHUVUC SET MANV='" + MaNV + "'" +   
-                    ", TENKV='" + TenKV  + "'" +
-                    ", DIACHIKV='" + DiaChiKV  + "'" +
+                    ", TENKV=N'" + TenKV  + "'" +
+                    ", DIACHIKV=N'" + DiaChiKV  + "'" +
                     " WHERE MAKV= '" + MaKV +"'";
             
             System.out.println(sql);
@@ -101,7 +101,7 @@ public class AreaServices {
     }
     
     /**
-     * Phương thức chứa câu lệnh truy vấn xóa dữ liệu ở database
+     * Phương thức chứa câu lệnh xóa dữ liệu ở database
      * @param MaKV
      * @return 
      */
