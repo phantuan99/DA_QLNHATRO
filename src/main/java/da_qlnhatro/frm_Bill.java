@@ -55,15 +55,15 @@ public class frm_Bill extends javax.swing.JFrame {
      */
     public frm_Bill() {
         initComponents();
+        
         LoadArea();
         LoadRoom(0);
         showDataList();
         addItemNam();
         this.setTitle("HỆ THỐNG QUẢN LÝ NHÀ TRỌ/QUẢN LÝ HÓA ĐƠN");
-        txt_ThanhTienDien.setText("0");
-        txt_ThanhTienNuoc.setText("0");
-        txt_Tongtien.setText("0");
-        txtDonGia.setText("0");
+        this.setLocationRelativeTo(null); 
+        this.setResizable(false);
+        clear();
     }
     /**
      * Truyền năm vào combobox năm
@@ -93,36 +93,66 @@ public class frm_Bill extends javax.swing.JFrame {
     }
     
     
-    // Các phương thức tìm kiếm
-            // Tìm kiếm mã hóa đơn 
+    //===Các phương thức tìm kiếm ====//
+    
+            /**
+             *  Tìm kiếm mã hóa đơn
+             * @param MaHD
+             * @param DSBills
+             * @return 
+             */ 
             public Bill findBill(int MaHD, ArrayList<Bill> DSBills) {
+                // Duyệt từng Bill trong danh sách bill
                 for (Bill item : DSBills) {
+                    // So sánh với Mã hóa đơn truyền vào 
                     if (item.getMAHOADON()== MaHD) {
                         return item;
                     }
                 }
                 return null;
             }
-            // Tìm kiếm mã phòng 
+            /**
+             * Tìm kiếm mã phòng 
+             * @param MaPhong
+             * @param DSRoom
+             * @return 
+             */
             public Room findRoom(int MaPhong, ArrayList<Room> DSRoom) {
+                // Duyệt từng phòng trong danh sách phòng
                 for (Room item : DSRoom) {
+                    // SO sánh với mã phòng truyền vào
                     if (item.getMAPHONG()== MaPhong) {
                         return item;
                     }
                 }
                 return null;
             }
-            // Tìm kiếm mã khu vực
+            /**
+             * Tìm kiếm mã khu vực
+             * @param MaKV
+             * @param DSKV
+             * @return 
+             */
             public Area findKV(int MaKV, ArrayList<Area> DSKV) {
+                // Duyệt qua từng khu vực
                 for (Area item : DSKV) {
+                    // So sánh với mã khu vực
                     if (item.getMAKV()== MaKV) {
                         return item;
                     }
                 }
                 return null;
             }
+           /**
+            * Phương thức tìm loại phòng
+            * @param maloai
+            * @param dsRoomType
+            * @return 
+            */
             private RoomType findRoomType(int maloai, ArrayList<RoomType> dsRoomType){
+               // Duyệt qua từng loại phòng
                 for(RoomType item : dsRoomType){
+                    // So sánh với mã loại phòng
                     if(item.getMALOAI() == maloai){
                         return item;
                     }
@@ -148,7 +178,7 @@ public class frm_Bill extends javax.swing.JFrame {
                
         Object[] row = new Object[10]; // Khai báo mảng
         
-        //Gán các item tương đương cho table
+        //Lấy các item của list và truyền vào model
         for(int i = 0; i < list.size(); i++){            
             row[0] = list.get(i).getMAHOADON();
             row[1] = list.get(i).getMAKV();
@@ -162,11 +192,11 @@ public class frm_Bill extends javax.swing.JFrame {
             row[9] = list.get(i).getTONGTIEN();
             model.addRow(row);
         }
-        //Lớp interface thể hiện vùng chọn tĩnh
+        //Khởi tạo phương thức chọn
         ListSelectionModel cellSelectionModel = tab_grid.getSelectionModel();
-        
-        cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Chế độ chọn đơn
-        //Thêm listener vào DS mỗi khi vùng chọn có thay đổi       
+        //Chế độ chọn đơn
+        cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); 
+        //Thêm listener      
         cellSelectionModel.addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {
                 //Gọi đến thay đổi grid
@@ -180,23 +210,25 @@ public class frm_Bill extends javax.swing.JFrame {
     * Method thay đổi giá trị table khi nhấn vào
     */
       public void gridSelectedChanged(ListSelectionEvent e) {
-       String selectedData = null;
+      // Khởi tạo ID chọn = 0
        int selectedID = 0; 
-       
-       int[] selectedRows = tab_grid.getSelectedRows();
-       int[] selectedColumns = tab_grid.getSelectedColumns();
-        
+
+        //Chọn dòng
        int selectedRow = tab_grid.getSelectedRow();
+       //Chọn cột
        int selectedColumn = tab_grid.getSelectedColumn();
-       
+       // Nếu cột và dòng được chọn lớn hơn 0 thi
        if(selectedRow >=0 && selectedColumn >=0){
-           selectedData = String.valueOf(tab_grid.getValueAt(selectedRow, selectedColumn));
+           
+           // Gán selectedID là hàng được chọn và cột 0
            selectedID = (int) tab_grid.getValueAt(selectedRow, 0);
            
+           //Lưu Bill đã chọn = ID và danh sách Bill
            selectedBill= findBill(selectedID,dsBill);
            
-           System.out.println("Selected: " + selectedData + " , value: " + selectedID);
+               // Nếu ID được chọn khác 0 
                if(selectedID != 0){
+               // Thực thi phương thức showDataDetail
                showDataDetail(selectedID,
                                     (int)tab_grid.getValueAt(selectedRow, 1), 
                                     (int) tab_grid.getValueAt(selectedRow, 2), 
@@ -213,7 +245,7 @@ public class frm_Bill extends javax.swing.JFrame {
        }
     }
       /**
-       * Method thay đổi giá trị theo đối tượng ở table
+       * Phương thức truyền giá trị từ table lên textfield và combobox
        * @param MAHOADON
        * @param MAKV
        * @param MAPHONG
@@ -224,9 +256,9 @@ public class frm_Bill extends javax.swing.JFrame {
        * @param THANG
        * @param NAM 
        */
-      
        private void showDataDetail(int MAHOADON, int MAKV, int MAPHONG, int SOKWDIEN, int SOKWNUOC, int TIENDIEN, int TIENNUOC, int THANG, int NAM,int TONGTIEN){
-     
+        
+        
         txt_MaHD.setText(""+ MAHOADON);
         txt_KWDien.setText(String.valueOf(SOKWDIEN));
         txt_KhoiNuoc.setText(String.valueOf(SOKWNUOC));
@@ -679,11 +711,7 @@ public class frm_Bill extends javax.swing.JFrame {
 
     //CÁC ACTION
     private void txt_KWDienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_KWDienActionPerformed
-   
 
-    
-    
-     
       
     }//GEN-LAST:event_txt_KWDienActionPerformed
       
@@ -775,18 +803,20 @@ public class frm_Bill extends javax.swing.JFrame {
 
     private void btn_reportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reportActionPerformed
         try {
-            SqlConnection sqlConn = new SqlConnection();              
+            SqlConnection sqlConn = new SqlConnection();        
             
-            Map parameters = new HashMap(); // Tạo thành cặp key/value
-            
-            String workingDir = System.getProperty("user.dir"); // lấy đường dẫn gốc
- 
+            // Tạo thành cặp key/value
+            Map parameters = new HashMap(); 
+             // lấy đường dẫn gốc ở máy
+            String workingDir = System.getProperty("user.dir");
+            //lấy đường dẫn đến HoaDon
             String file = workingDir + "/src/main/java/Report/HoaDon.jasper"; 
 
             System.out.println("Current working directory : " + file);
 
-            
+            //Load file
             JasperReport report = (JasperReport) JRLoader.loadObjectFromFile(file);
+            // Fill Report
             JasperPrint jasperPrint = JasperFillManager.fillReport(report, parameters, sqlConn.getConnection());            
             
             //JasperViewer.viewReport(jasperPrint);
@@ -821,6 +851,7 @@ public class frm_Bill extends javax.swing.JFrame {
         String TTD = txt_ThanhTienDien.getText();
         String TTN = txt_ThanhTienNuoc.getText();
         
+        // Kiểm tra trường dữ liệu điện và nước
         if(KWD.equals("")|| KWN.equals(""))
         {
             JOptionPane.showMessageDialog(null, "Bạn cần phải nhập số điện và số nước");
@@ -858,7 +889,9 @@ public class frm_Bill extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanel1MouseClicked
 
-    
+    /**
+     * Phương thức update lại thành tiền
+     */
     void updateTT()
     {
      int X = Integer.parseInt(txt_ThanhTienDien.getText());

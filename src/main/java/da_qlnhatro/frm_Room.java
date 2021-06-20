@@ -500,6 +500,7 @@ public class frm_Room extends javax.swing.JFrame {
         else{
             JOptionPane.showMessageDialog(null, "xin chọn phòng cần sửa");
         }
+        clear();
     }//GEN-LAST:event_btnSuaPhongActionPerformed
     /**
      * xử lý sự kiện xóa phòng trọ
@@ -534,6 +535,7 @@ public class frm_Room extends javax.swing.JFrame {
         else{
             JOptionPane.showMessageDialog(null, "xin chọn phòng cần xóa");
         }
+        clear();
     }//GEN-LAST:event_btnXoaPhongActionPerformed
     /**
      * xử lý sự kiện thêm loại phòng
@@ -566,6 +568,7 @@ public class frm_Room extends javax.swing.JFrame {
         else
             //hiển thị thông báo thêm thất bại
             JOptionPane.showMessageDialog(null, "Thêm Thất bại");
+        clear();
     }//GEN-LAST:event_btnThemLoaiActionPerformed
 
     private void btnSuaLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaLoaiActionPerformed
@@ -602,6 +605,7 @@ public class frm_Room extends javax.swing.JFrame {
         else{
             JOptionPane.showMessageDialog(null, "Xin chọn loại phòng cần sửa");
         }
+        clear();
     }//GEN-LAST:event_btnSuaLoaiActionPerformed
     /**
      * xử lý sự kiện xóa loại phòng
@@ -642,6 +646,7 @@ public class frm_Room extends javax.swing.JFrame {
         else{
             JOptionPane.showMessageDialog(null, "Xin chọn loại phòng cần xóa");
         }
+        clear();
     }//GEN-LAST:event_btnXoaLoaiActionPerformed
 
     /**
@@ -763,6 +768,12 @@ public class frm_Room extends javax.swing.JFrame {
 
             
         });
+    }
+    void clear(){
+        txtDonGia.setText("");
+        txtMaPhong.setText("");
+        txtMaloai.setText("");
+        txtTenLoai.setText("");
     }
     private void roomGridSelectedChanged() {
         //String selectedData = null;

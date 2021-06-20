@@ -44,6 +44,8 @@ public class frm_Area extends javax.swing.JFrame {
         initComponents();
         loadMaNV();
         showDataList();
+        this.setLocationRelativeTo(null); 
+        this.setResizable(false);
         txt_MaKV.setEnabled(false);
         this.setTitle("HỆ THỐNG QUẢN LÝ NHÀ TRỌ/QUẢN LÝ KHU VỰC");
     }
@@ -327,7 +329,7 @@ public class frm_Area extends javax.swing.JFrame {
             // Trả về giá trị đã chỉ định
             public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                // Xác định đúng đối tượng UserAccount( Nhân viên
+                // Xác định đúng đối tượng UserAccount( Nhân viên)
                 if(value instanceof UserAcc){
                     UserAcc User = (UserAcc) value;                   
                     setText( String.valueOf( User.getTENNV())); // Lấy tên NV
@@ -457,6 +459,7 @@ public class frm_Area extends javax.swing.JFrame {
           
         txt_MaKV.setText(""+ MaKV);        
         txt_TenKV.setText(TenKV);
+        txt_DiaChi.setText(DiaChi);
           if( selectedKV != null)
           {
               cbb_MaNV.setSelectedItem(findUser(selectedKV.getMANV(), DSUSER));
@@ -480,7 +483,7 @@ public class frm_Area extends javax.swing.JFrame {
         {
            //Gọi đến đến Câu lệnh truy vấn của khu vực(Services)
            int rowEffected = KVServices.AddNewRecord(UserID.getMaNV(),TenKV,DiaChi);
-           
+           //Nếu có thể tăng lên thì tạo mới thành công
            if(rowEffected > 0){
               
                 JOptionPane.showMessageDialog(null, "Tao moi thanh cong!");
@@ -548,7 +551,10 @@ public class frm_Area extends javax.swing.JFrame {
  
         clear();
     }//GEN-LAST:event_btn_delActionPerformed
-void clear()
+/**
+ * Phương thức clear text
+ */
+    void clear()
 {
         txt_MaKV.setText("");
         txt_DiaChi.setText("");
@@ -566,9 +572,13 @@ void clear()
     }//GEN-LAST:event_txt_TenKVActionPerformed
 
     private void btn_homeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_homeActionPerformed
-       this.dispose();
+       // Tắt form hiện tại
+        this.dispose();
+       // Gọi form Index
        frm_Index Home = new frm_Index();
+       // Hiện form Index
        Home.setVisible(true);
+       //Lưu ROle và set tên ngược lại cho Index
        if(saveRole==1)
        {
            Home.setRoleName("Admin");  

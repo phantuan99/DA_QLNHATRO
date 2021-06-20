@@ -25,10 +25,13 @@ public class SqlConnection {
     * Khởi tạo connection tới SQL server 
     */
     public Connection getConnection() throws ClassNotFoundException{
-            Connection conn = null;
+        // Khai báo connection rỗng
+        Connection conn = null;
         try{          
-                String connectionUrl = "jdbc:sqlserver://localhost:1433;"
+            //Chuỗi kết nối    
+            String connectionUrl = "jdbc:sqlserver://localhost:1433;"
                             + "databaseName=QL_NHATRO;user=sa;password=123;";
+            //Thiết lập kết nối với URL
             conn = DriverManager.getConnection(connectionUrl);        				
             return conn;
         }

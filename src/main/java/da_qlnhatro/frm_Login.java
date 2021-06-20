@@ -22,7 +22,8 @@ public class frm_Login extends javax.swing.JFrame {
     public frm_Login() {
         initComponents();
         this.setTitle("HỆ THỐNG QUẢN LÝ NHÀ TRỌ");
-        
+        this.setLocationRelativeTo(null); 
+        this.setResizable(false);
         this.getRootPane().setDefaultButton(btn_Login);
        // txt_Username.requestFocus();
         
@@ -151,15 +152,15 @@ public class frm_Login extends javax.swing.JFrame {
                          Index.setRoleName("User");
                       }
                         Index.setTenUser(txt_Username.getText());
-                        Index.pack();
-                        Index.setLocationRelativeTo(null);
+                        
                         Index.setVisible(true);
+                        this.dispose();
                      
                 }
                 else
                     JOptionPane.showMessageDialog(null, "Dang nhap that bai");
             }
-            this.dispose();  
+              
         }
         catch(Exception ex){
             JOptionPane.showMessageDialog(null, ex);

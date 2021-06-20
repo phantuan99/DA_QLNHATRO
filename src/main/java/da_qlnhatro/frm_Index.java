@@ -21,7 +21,7 @@ public class frm_Index extends javax.swing.JFrame {
     public frm_Index() {
         initComponents();
         
-        this.pack();
+        
         this.setLocationRelativeTo(null); 
         this.setResizable(false);
         this.setTitle("HỆ THỐNG QUẢN LÝ NHÀ TRỌ/TRANG CHỦ");
@@ -331,7 +331,7 @@ public class frm_Index extends javax.swing.JFrame {
     private void btn_QLPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_QLPhongActionPerformed
         frm_Room R = new frm_Room();
         R.setVisible(true);
-        this.dispose();    
+            
         
     }//GEN-LAST:event_btn_QLPhongActionPerformed
 
@@ -356,19 +356,8 @@ public class frm_Index extends javax.swing.JFrame {
     private void btn_QLKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_QLKHActionPerformed
         frm_Customer KH = new frm_Customer();
         KH.setVisible(true);
-        this.dispose();
-         // Truyền status qua form khác
-         if(status == 1)
-        {
-            KH.getRole(1);
-          
-        }
-        else
-        {
-            KH.getRole(0);
-           
-        }   
-        KH.getNames(lbl_Username.getText());
+        
+       
     }//GEN-LAST:event_btn_QLKHActionPerformed
 
     private void btn_QLKVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_QLKVActionPerformed

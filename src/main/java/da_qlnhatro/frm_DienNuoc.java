@@ -56,6 +56,8 @@ public class frm_DienNuoc extends javax.swing.JFrame {
     public frm_DienNuoc() {
         initComponents();
         this.setTitle("HỆ THỐNG QUẢN LÝ NHÀ TRỌ/QUẢN LÝ ĐIỆN NƯỚC");
+        this.setLocationRelativeTo(null); 
+        this.setResizable(false);
         loadKV();
         showDataList();
     }
@@ -165,6 +167,7 @@ public class frm_DienNuoc extends javax.swing.JFrame {
         jLabel5.setText("Khu Vực");
 
         txt_ID.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        txt_ID.setEnabled(false);
 
         txt_GiaDien.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
@@ -311,9 +314,8 @@ public class frm_DienNuoc extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(29, 29, 29)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();

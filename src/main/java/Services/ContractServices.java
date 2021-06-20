@@ -76,7 +76,6 @@ public class ContractServices {
                     +"','"+strNgayKetThuc
                     +"','"+TU      
                     +"','"+O
-                   
                     +"')";   
             
             System.out.println(sql);
@@ -117,13 +116,13 @@ public class ContractServices {
             
              String sql = "UPDATE HOPDONG SET TENHD = "
                     +"N'"+ TENHD
-                    +"',MAKH = "+MAKH
+                    +"',MAKH = '"+MAKH
                     +"', MAKV = '"+MAKV
                     +"', MAPHONGTRO = '"+MAPHONGTRO
-                    +",NGAYLAP = '"+strNgayLap
-                    +"', NGAYKETTHUC = N'"+strNgayKetThuc
-                    +"', TU = '"+TU
-                    +"', O = N'"+O
+                    +"',NGAYLAP = '"+strNgayLap
+                    +"', NGAYKETTHUC = '"+strNgayKetThuc
+                    +"', TU =N'"+TU
+                    +"', O = '"+O
                      
                     +"' WHERE SOHD = "+SOHD;
             

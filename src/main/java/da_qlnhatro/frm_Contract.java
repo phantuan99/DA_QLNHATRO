@@ -67,6 +67,8 @@ public class frm_Contract extends javax.swing.JFrame {
 
     public frm_Contract() {
         initComponents();
+        this.setLocationRelativeTo(null); 
+        this.setResizable(false);
         this.setTitle("HỆ THỐNG QUẢN LÝ NHÀ TRỌ/QUẢN LÝ HỢP ĐỒNG");
         loadKH();
         showDataList();
@@ -410,21 +412,25 @@ public class frm_Contract extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Phương thức load khách hàng 
+     */
     private void loadKH(){
         cbb_MaKH.removeAllItems();// Xóa hết những giá trị có trong combobox
-        DSKH = KHServices.getAllRecords();//Select các giá trị của khách hàng
-       // Lấy từng đối tượng khách hàng
+        DSKH = KHServices.getAllRecords();//Select các giá trị của khách hàng truyền vào danh sách KH
+       // Duyệt từng đối tượng khách hàng
         for(Customer KH : DSKH){
+            // Thêm các khách hàng vào combobox
             cbb_MaKH.addItem(KH);
         }
+        // Hiển thị tên khách hàng cho combobox
           cbb_MaKH.setRenderer(new DefaultListCellRenderer() {
               @Override
             public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                
                 if(value instanceof Customer){
-                    Customer KH = (Customer) value;
-                    
+                    Customer KH = (Customer) value;                  
                     setText( String.valueOf( KH.getTENKH()));
                 }
                 return this;
@@ -437,12 +443,20 @@ public class frm_Contract extends javax.swing.JFrame {
     private void txt_TenHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_TenHDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_TenHDActionPerformed
-private void LoadArea() {
+/**
+ * Phương thức load khu vực
+ */
+    private void LoadArea() {
+        //Xóa các item
         cbb_KV.removeAllItems();
+        // Truyền các giá trị khu vực cho danh sách khu vực
         dsArea = areaServices.getAllRecords();
+        // Duyệt qua khu vực trong danh sách khu vực
         for(Area item : dsArea){
+            // Truyền các khu vực vào combobox
             cbb_KV.addItem(item);
-        }        
+        }       
+        // Hiển thị tên khu vực cho combobox khu vực
         cbb_KV.setRenderer(new DefaultListCellRenderer(){
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
@@ -456,6 +470,7 @@ private void LoadArea() {
             }
             
         });
+        //Bắt sự kiện khi click vào item trong combobox khu vực
         cbb_KV.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -463,26 +478,36 @@ private void LoadArea() {
                     Area area = (Area) cbb_KV.getSelectedItem();
                     int makv = area.getMAKV();
                     System.out.println(makv);
+                    //Truyền mã khu vực vào phòng
                     LoadRoom(makv);
                     
                 }
             }
         });
     }
+    /**
+     * Phương thức load combobox Phòng
+     * @param makv 
+     */
     private void LoadRoom(int makv){
+        
         cbb_Phong.removeAllItems();
+        //Nếu mã khu vực khác 0
         if(makv != 0){
-         //   dsRoom = null;
+           // Truyền vào danh sách phòng đối tượng dựa vào mã khu vực
             dsRoom = roomServices.getRecordByArea(makv);
         }
         else{
-         //   dsRoom = null;
+        
             dsRoom = roomServices.getAllRecords();
         }
         
+        //Duyệt phòng trong danh sách phòng
         for (Room item : dsRoom) {
+            //Thêm các item vào combobx Phòng
             cbb_Phong.addItem(item);
         }
+        // Hiển thị mã phòng
         cbb_Phong.setRenderer(new DefaultListCellRenderer(){
         @Override
         public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
@@ -523,7 +548,8 @@ private void LoadArea() {
     int NumberBox = Integer.valueOf(txt_NumberBox.getText());
     Area KV = (Area) cbb_KV.getSelectedItem(); 
     Room Phong = (Room) cbb_Phong.getSelectedItem();
-      
+        
+        // Kiểm tra ô ngày lập và kết thúc
          if(NgayLap == null && NgayKetThuc == null)
         {
             JOptionPane.showMessageDialog(null, "Bạn cần phải nhập ngày bắt đầu và kết thúc");
@@ -532,7 +558,7 @@ private void LoadArea() {
         
         else
         { 
-         //call function
+         
         int rowEffected = HDServices.AddNewRecord(TenHD,KH.getMAKH(),KV.getMAKV(),Phong.getMAPHONG(),NgayLap,NgayKetThuc,Box,NumberBox);
          if(rowEffected > 0){
            //  showUserAccounts();
@@ -588,22 +614,24 @@ private void LoadArea() {
     }
      
       public void gridSelectedChanged(ListSelectionEvent e) {
-     String selectedData = null;
+   
      int selectedID = 0; 
        
-       int[] selectedRows = tab_grid.getSelectedRows();
-       int[] selectedColumns = tab_grid.getSelectedColumns();
-        
+//       int[] selectedRows = tab_grid.getSelectedRows();
+//       int[] selectedColumns = tab_grid.getSelectedColumns();
+        // Chọn hàng
        int selectedRow = tab_grid.getSelectedRow();
+       // Chọn Cột
        int selectedColumn = tab_grid.getSelectedColumn();
-       
+       // Nếu cột và hàng được chọn lớn hơn 0
        if(selectedRow >=0 && selectedColumn >=0){
-           selectedData = String.valueOf(tab_grid.getValueAt(selectedRow, selectedColumn));
+           //Gán chọn ID = hàng được chọn và cột là 0         
            selectedID = (int) tab_grid.getValueAt(selectedRow, 0);
+           
            
            selectedHD= findHD(selectedID,DSHD);
            
-           System.out.println("Selected: " + selectedData + " , value: " + selectedID);
+         
                if(selectedID != 0){
                showDataDetail(selectedID,
                                     (String)tab_grid.getValueAt(selectedRow, 1), 
@@ -633,16 +661,31 @@ private void LoadArea() {
             cbb_Phong.setSelectedItem(findRoom(selectedHD.getMAPHONGTRO(), dsRoom));
                  
     }
- }
+ }          
+       /**
+        * Phương thức tìm khách hàng
+        * @param MaKH
+        * @param DSKH
+        * @return 
+        */
             public Customer findKH(int MaKH, ArrayList<Customer> DSKH) {
+            //Duyệt qua khách hàng trong danh sách khách hàng
             for (Customer item : DSKH) {
+                //Nếu mã khách hàng có tồn tại thì trả về item KH
                 if (item.getMAKH()== MaKH) {
                     return item;
                 }
             }
             return null;
           }
+            /**
+             * Phương thức tìm hợp đồng
+             * @param SoHD
+             * @param DSHD
+             * @return 
+             */
              public Contract findHD(int SoHD, ArrayList<Contract> DSHD) {
+             // Duyệt qua các item trong danh sách
             for (Contract item : DSHD) {
                 if (item.getSOHD()== SoHD) {
                     return item;
@@ -650,7 +693,14 @@ private void LoadArea() {
             }
             return null;
           }
+             /**
+              * Phương thức tìm loại phòng
+              * @param maloai
+              * @param dsRoomType
+              * @return 
+              */
                private RoomType findRoomType(int maloai, ArrayList<RoomType> dsRoomType){
+                // Duyệt qua các item trong danh sách
                 for(RoomType item : dsRoomType){
                     if(item.getMALOAI() == maloai){
                         return item;
@@ -658,8 +708,14 @@ private void LoadArea() {
                 }
                 return null;
             }
-                   // Tìm kiếm mã phòng 
+              /**
+               * Phương thức tìm phòng
+               * @param MaPhong
+               * @param DSRoom
+               * @return 
+               */
             public Room findRoom(int MaPhong, ArrayList<Room> DSRoom) {
+                 // Duyệt qua các item trong danh sách
                 for (Room item : DSRoom) {
                     if (item.getMAPHONG()== MaPhong) {
                         return item;
@@ -667,8 +723,14 @@ private void LoadArea() {
                 }
                 return null;
             }
-            // Tìm kiếm mã khu vực
+            /**
+             * Phương thức tìm khu vực
+             * @param MaKV
+             * @param DSKV
+             * @return 
+             */
             public Area findKV(int MaKV, ArrayList<Area> DSKV) {
+                 // Duyệt qua các item trong danh sách
                 for (Area item : DSKV) {
                     if (item.getMAKV()== MaKV) {
                         return item;
@@ -693,8 +755,7 @@ private void LoadArea() {
        {
            Home.setRoleName("User");     
        }
-       Home.setTenUser(saveName);
-            
+       Home.setTenUser(saveName);           
     }//GEN-LAST:event_btn_HomeActionPerformed
 
     void clear(){

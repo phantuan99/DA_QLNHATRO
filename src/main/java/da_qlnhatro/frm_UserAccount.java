@@ -68,6 +68,8 @@ public class frm_UserAccount extends javax.swing.JFrame {
     }
     
     public frm_UserAccount() {
+        this.setLocationRelativeTo(null); 
+        this.setResizable(false);
         initComponents();
         this.setTitle("HỆ THỐNG QUẢN LÝ NHÀ TRỌ/QUẢN LÝ USER");
         showDataList();
@@ -449,32 +451,37 @@ public class frm_UserAccount extends javax.swing.JFrame {
        }
        else
            Role = 0;
+        
         if(NgaySinh==null)
         {
+            //Xuất thông báo phải chọn ngày sinh
             JOptionPane.showMessageDialog(null, "Ban cần phải chọn ngày sinh");
         }
         else if(txt_Password.getText().equals("") )
         {
-            JOptionPane.showMessageDialog(null, "Ban can phai nhap MK");
+            //Xuất thông báo mời nhập mật khẩu
+            JOptionPane.showMessageDialog(null, "Bạn cần phải nhập mật khẩu");
         }
         else if(valEmail(Email)==false)
         {
+            //Xuất thông báo mời nhập lại email
                JOptionPane.showMessageDialog(null, "Mời bạn nhập lại email");
         }
+        // Sau khi bắt lỗi
         else 
-        { 
-           
+        {   
             int rowEffected = UserServices.AddNewRecord(Password,Role,TenNV,SDT,Email,DiaChi,NgaySinh);
             if(rowEffected > 0)
             {
-              
+              //Xuất thông báo thành công
                 JOptionPane.showMessageDialog(null, "Tao moi thanh cong!");
                 showDataList();
-            }            
+            }      
+            //Xuất thông báo thất bại
             else
                 JOptionPane.showMessageDialog(null, "Tạo mới thất bại");
         }
-         reload();
+         clear();
  
     
     }//GEN-LAST:event_btn_addActionPerformed
@@ -488,18 +495,22 @@ public class frm_UserAccount extends javax.swing.JFrame {
         String DiaChi = txt_DiaChi.getText();
         Date NgaySinh = J_NgaySinh.getDate();
          int Role;
+       
        if(chk_role.isSelected() == true)
        {
            Role = 1;
        }
        else
            Role = 0;
+     // Kiểm tra password rỗng
      if(txt_Password.getText().equals("") ){
            JOptionPane.showMessageDialog(null, "Ban can phai nhap MK");
        }
+     // Kiểm tra định dạng email
       else if(valEmail(Email)==false){
          JOptionPane.showMessageDialog(null, "Mời bạn nhập lại email");
      }
+      //Sau khi bắt lỗi
        else
         { 
          //call function
@@ -512,7 +523,7 @@ public class frm_UserAccount extends javax.swing.JFrame {
          else
              JOptionPane.showMessageDialog(null, "Cap nhat thất bại");
         }
-     reload();
+     clear();
     }//GEN-LAST:event_btn_updateActionPerformed
 
     private void btn_delActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_delActionPerformed
@@ -539,7 +550,7 @@ public class frm_UserAccount extends javax.swing.JFrame {
     }   
       else
               JOptionPane.showMessageDialog(null, "Bạn cần phải chọn User để xóa"); 
-      reload();
+      clear();
     }//GEN-LAST:event_btn_delActionPerformed
 
     private void txt_PhoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_PhoneActionPerformed
@@ -548,7 +559,7 @@ public class frm_UserAccount extends javax.swing.JFrame {
     /**
      * Phương thức để clear text
      */
-    public void reload()
+    public void clear()
     {
        txt_MaNV.setText("");
        txt_Email.setText("");
@@ -558,7 +569,7 @@ public class frm_UserAccount extends javax.swing.JFrame {
        txt_TenNV.setText("");
     }
     private void btn_reloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reloadActionPerformed
-     reload();
+     clear();
        
     }//GEN-LAST:event_btn_reloadActionPerformed
 
@@ -566,7 +577,7 @@ public class frm_UserAccount extends javax.swing.JFrame {
        frm_Index Home = new frm_Index();
                Home.setVisible(true);
                this.dispose();
-            
+            //Set label Role lại cho Index
             if(saveRole==1)
             {
                 Home.setRoleName("Admin");  
@@ -575,11 +586,13 @@ public class frm_UserAccount extends javax.swing.JFrame {
             {
                 Home.setRoleName("User");     
             }
+            //Set tên lại cho Index
             Home.setTenUser(saveName);
     }//GEN-LAST:event_btn_homeActionPerformed
 
     private void btn_xuatNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xuatNVActionPerformed
         try {
+            //Kết nối SQL
             SqlConnection sqlConn = new SqlConnection();              
  
             Map parameters = new HashMap();

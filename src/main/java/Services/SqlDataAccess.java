@@ -51,7 +51,7 @@ public class SqlDataAccess {
         }
     }
      /**
-    * Lệnh thực thi khi select dữ liệu
+    * Phương thức select dữ liệu
     * Truyền vào câu lệnh truy vấn select
     * @param str
     * @return 

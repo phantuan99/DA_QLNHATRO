@@ -78,7 +78,6 @@ public class frm_Customer extends javax.swing.JFrame {
         btnXoa = new javax.swing.JButton();
         btnThem = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
-        btn_home = new javax.swing.JButton();
         btn_xuatNV = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -148,13 +147,6 @@ public class frm_Customer extends javax.swing.JFrame {
             }
         });
 
-        btn_home.setText("Trang Chủ");
-        btn_home.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_homeActionPerformed(evt);
-            }
-        });
-
         btn_xuatNV.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         btn_xuatNV.setText("Xuất DS Khách Hàng");
         btn_xuatNV.addActionListener(new java.awt.event.ActionListener() {
@@ -170,7 +162,6 @@ public class frm_Customer extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_home, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_xuatNV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnXoa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnSua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -187,13 +178,9 @@ public class frm_Customer extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btn_home)
-                .addGap(1, 1, 1)
-                .addComponent(btn_xuatNV, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(btn_xuatNV, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnXoa, btn_home});
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -341,6 +328,15 @@ public class frm_Customer extends javax.swing.JFrame {
      * Xử lý sự kiện cho nút thêm
      * @param evt 
      */
+    
+    void clear()
+    {
+        txtDiaChi.setText("");
+        txtEmail.setText("");
+        txtMaKH.setText("");
+        txtSDT.setText("");
+        txtTenKH.setText("");
+    }
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         //nếu text field txtTenKH khác rỗng
         if(!txtTenKH.getText().isEmpty()){
@@ -368,6 +364,7 @@ public class frm_Customer extends javax.swing.JFrame {
             //hiện thông báo nhập lại thông tin
             JOptionPane.showMessageDialog(null, "Xin nhập vào thông tin khách hàng cần thêm!!");
         }
+        clear();
     }//GEN-LAST:event_btnThemActionPerformed
     /**
      * xử lý sự kiện nút sửa
@@ -402,6 +399,7 @@ public class frm_Customer extends javax.swing.JFrame {
             //hiện thông báo chọn lại thông tin
             JOptionPane.showMessageDialog(null, "Xin chọn thông tin khách hàng cần sửa!!");
         }
+        clear();
     }//GEN-LAST:event_btnSuaActionPerformed
     /**
      * xử lý sự kiện cho nút xóa
@@ -437,22 +435,8 @@ public class frm_Customer extends javax.swing.JFrame {
             //hiện thông báo chọn lại thông tin
             JOptionPane.showMessageDialog(null, "Xin chọn thông tin khách hàng cần xóa!!");
         }
+        clear();
     }//GEN-LAST:event_btnXoaActionPerformed
-
-    private void btn_homeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_homeActionPerformed
-        this.dispose();
-        frm_Index Home = new frm_Index();
-        Home.setVisible(true);
-        if(saveRole==1)
-        {
-            Home.setRoleName("Admin");  
-        }
-        else
-        {
-            Home.setRoleName("User");     
-        }
-        Home.setTenUser(saveName);
-    }//GEN-LAST:event_btn_homeActionPerformed
 
     private void btn_xuatNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xuatNVActionPerformed
         try {
@@ -524,7 +508,6 @@ public class frm_Customer extends javax.swing.JFrame {
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnXoa;
-    private javax.swing.JButton btn_home;
     private javax.swing.JButton btn_xuatNV;
     private javax.swing.JTable dgvKH;
     private com.toedter.calendar.JDateChooser dtmNgaySinh;
